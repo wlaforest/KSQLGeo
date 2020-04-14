@@ -1,4 +1,4 @@
-package io.confluent.ksql.udf;
+package com.github.wlaforest.ksql.udf;
 
 import io.confluent.ksql.function.udf.Udf;
 import io.confluent.ksql.function.udf.UdfDescription;
@@ -7,7 +7,6 @@ import org.locationtech.jts.geom.*;
 import org.locationtech.jts.io.ParseException;
 import org.locationtech.jts.io.WKTReader;
 import org.geotools.geometry.jts.JTSFactoryFinder;
-import org.locationtech.jts.geom.GeometryFactory;
 
 
 @UdfDescription(
@@ -17,7 +16,7 @@ import org.locationtech.jts.geom.GeometryFactory;
         author = "Will LaForest"
 )
 
-public class GeoContained {
+public class GeoContained extends GeometryBase {
     @Udf(description = "determines if a double value lat/long is inside or outside the geometry passed as the 3rdparameter as WKT encoded ...")
     public boolean point_contained(
             @UdfParameter(value = "latitude", description = "the latitude of the point") final double latitude,
@@ -26,12 +25,10 @@ public class GeoContained {
             throws ParseException
     {
 
-        GeometryFactory geometryFactory = JTSFactoryFinder.getGeometryFactory();
-        WKTReader reader = new WKTReader(geometryFactory);
-        Polygon polygon = (Polygon) reader.read(geometryWKT);
-        Coordinate coord = new Coordinate(longitude, latitude);
-        Point point = geometryFactory.createPoint(coord);
-        if (point.within(polygon)) {
+        Geometry geometry = getGeometryWKT(geometryWKT);
+        Geometry point = getPoint(longitude, latitude);
+
+        if (point.within(geometry)) {
             return true;
         } else {
             return false;
