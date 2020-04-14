@@ -1,0 +1,63 @@
+{
+  "name": "io.confluent.laforest.home",
+  "type": "STRUCT",
+  "fieldSchemas":
+  {
+      "ADDRESS":
+      {
+        "type":"STRING",
+        "isOptional":"false"
+      },
+      "CITY":
+      {
+        "type":"STRING",
+        "isOptional":"false"
+      },
+      "ZIP":
+      {
+        "type":"STRING",
+        "isOptional":"false"
+      },
+      "PRICE":
+      {
+        "type":"INT32",
+        "isOptional":"false"
+      },
+      "SQUARE":
+      {
+        "type":"INT32",
+        "isOptional":"true"
+      },
+      "LOTSIZE":
+      {
+        "type":"INT32",
+        "isOptional":"true"
+      },
+      "DAYSONMARKET":
+      {
+        "type":"INT32",
+        "isOptional":"true"
+      },
+      "SQUAREFEET":
+      {
+        "type":"INT32",
+        "isOptional":"true"
+      },
+      "MLS":
+      {
+        "type":"STRING",
+        "isOptional":"false"
+      },
+      "LATITUDE":
+      {
+        "type":"FLOAT64",
+        "isOptional":"false"
+      },
+      "LONGITUDE":
+      {
+        "type":"FLOAT64",
+        "isOptional":"false"
+      }
+
+  }
+}

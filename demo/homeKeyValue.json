@@ -1,0 +1,12 @@
+{
+  "name": "io.confluent.laforest.homeKey",
+  "type": "STRUCT",
+  "fieldSchemas":
+  {
+    "MLS":
+    {
+      "type":"STRING",
+      "isOptional":"false"
+    }
+  }
+}
