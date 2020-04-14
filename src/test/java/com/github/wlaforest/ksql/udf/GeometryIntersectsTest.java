@@ -1,11 +1,10 @@
 package com.github.wlaforest.ksql.udf;
 
 import org.junit.jupiter.api.Test;
-import org.locationtech.jts.io.ParseException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class GeometryCrossedTest {
+class GeometryIntersectsTest {
     public static final String MADISON_SCHOOL_DISTRICT = "POLYGON((-77.27483600429103 38.89521905950339," +
             "-77.29131549647853 38.892012508280466,-77.31277316859767 38.89254694353762,-77.32066959193752 " +
             "38.901097360742895,-77.31277316859767 38.90750949802689,-77.29938358119533 38.90697517537252," +
@@ -25,26 +24,14 @@ class GeometryCrossedTest {
             "38.889539649049034,-77.25595325282619 38.90049514948347))";
 
     @Test
-    void geometry_crossed() throws GeometryBase.GeometryParseException {
-        GeometryCrossed gc = new GeometryCrossed();
-        assertTrue(gc.geometry_crossed(MADISON_SCHOOL_DISTRICT,FLINT_HILL));
+    void geometry_intersects() throws GeometryParseException {
+        GeometryIntersects gc = new GeometryIntersects();
+        assertTrue(gc.geometry_intersects(MADISON_SCHOOL_DISTRICT,FLINT_HILL));
     }
 
     @Test
-    void geometry_crossed_not() throws GeometryBase.GeometryParseException {
-        GeometryCrossed gc = new GeometryCrossed();
-        assertFalse(gc.geometry_crossed(MADISON_SCHOOL_DISTRICT,OAKTON_SCHOOL_DISTRICT));
-    }
-
-    @Test
-    void geometry_crossed_empty_string_exception() {
-        GeometryCrossed gc = new GeometryCrossed();
-        try {
-            gc.geometry_crossed(MADISON_SCHOOL_DISTRICT,"");
-        } catch (GeometryBase.GeometryParseException e) {
-            assertNotNull(e);
-            return;
-        }
-        fail();
+    void geometry_intersects_not() throws GeometryParseException {
+        GeometryIntersects gc = new GeometryIntersects();
+        assertFalse(gc.geometry_intersects(MADISON_SCHOOL_DISTRICT,OAKTON_SCHOOL_DISTRICT));
     }
 }

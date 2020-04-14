@@ -1,9 +1,8 @@
-package io.confluent.ksql.udf;
+package com.github.wlaforest.ksql.udf;
 
 import org.junit.jupiter.api.Test;
-import org.locationtech.jts.io.ParseException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GeoContainedTest {
     public static final String MADISON_SCHOOL_DISTRICT = "POLYGON((-77.27483600429103 38.89521905950339," +
@@ -17,42 +16,52 @@ class GeoContainedTest {
 
 
     @Test
-    void point_contained_contained() throws ParseException {
+    void point_contained_contained() throws GeometryParseException {
         double lat = 38.91376458172108;
         double lon = -77.28468182552359;
 
-        GeoContained geoContained = new GeoContained();
-        boolean results = geoContained.point_contained(lat,lon,MADISON_SCHOOL_DISTRICT);
+        GeometryContained geometryContained = new GeometryContained();
+        boolean results = geometryContained.geometry_contained(lat,lon,MADISON_SCHOOL_DISTRICT);
         assertEquals(true, results);
     }
 
     @Test
-    void point_contained_not_lat() throws ParseException {
+    void point_contained_not_lat() throws GeometryParseException {
         double lat = 38.91376458172108;
         double lon = -78.28468182552359;
 
-        GeoContained geoContained = new GeoContained();
-        boolean results = geoContained.point_contained(lat,lon,MADISON_SCHOOL_DISTRICT);
+        GeometryContained geometryContained = new GeometryContained();
+        boolean results = geometryContained.geometry_contained(lat,lon,MADISON_SCHOOL_DISTRICT);
         assertEquals(false, results);
     }
 
     @Test
-    void point_contained_not_lon() throws ParseException {
+    void point_contained_not_lon() throws GeometryParseException {
         double lat = 38.91376458172108;
         double lon = -78.28468182552359;
 
-        GeoContained geoContained = new GeoContained();
-        boolean results = geoContained.point_contained(lat,lon,MADISON_SCHOOL_DISTRICT);
+        GeometryContained geometryContained = new GeometryContained();
+        boolean results = geometryContained.geometry_contained(lat,lon,MADISON_SCHOOL_DISTRICT);
         assertEquals(false, results);
     }
 
     @Test
-    void point_contained_contained_string() throws ParseException {
+    void point_contained_contained_string() throws GeometryParseException {
         String lat = "38.91376458172108";
         String lon = "-77.28468182552359";
 
-        GeoContained geoContained = new GeoContained();
-        boolean results = geoContained.point_contained(lat,lon,MADISON_SCHOOL_DISTRICT);
+        GeometryContained geometryContained = new GeometryContained();
+        boolean results = geometryContained.geometry_contained(lat,lon,MADISON_SCHOOL_DISTRICT);
+        assertEquals(true, results);
+    }
+
+    @Test
+    void point_contained_contained_circle() throws GeometryParseException {
+        String lat = "38.91376458172108";
+        String lon = "-77.28468182552359";
+
+        GeometryContained geometryContained = new GeometryContained();
+        boolean results = geometryContained.geometry_contained(lat,lon,MADISON_SCHOOL_DISTRICT);
         assertEquals(true, results);
     }
 }

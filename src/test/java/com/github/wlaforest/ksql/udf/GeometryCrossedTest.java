@@ -5,7 +5,7 @@ import org.locationtech.jts.io.ParseException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class GeoContainedTest {
+class GeometryCrossedTest {
     public static final String MADISON_SCHOOL_DISTRICT = "POLYGON((-77.27483600429103 38.89521905950339," +
             "-77.29131549647853 38.892012508280466,-77.31277316859767 38.89254694353762,-77.32066959193752 " +
             "38.901097360742895,-77.31277316859767 38.90750949802689,-77.29938358119533 38.90697517537252," +
@@ -15,60 +15,36 @@ class GeoContainedTest {
             "38.916191677473286,-77.2511467342715 38.91819510652208,-77.24634021571681 " +
             "38.91191750646839,-77.27483600429103 38.89521905950339))";
 
+    public static final String OAKTON_SCHOOL_DISTRICT = "POLYGON((-77.3029731301166 38.871966195174494," +
+            "-77.26846919334902 38.89027347822612,-77.29662165916933 38.88492877364056," +
+            "-77.34846339500918 38.89575138309681,-77.33249888695254 38.8699614616396," +
+            "-77.3029731301166 38.871966195174494))";
+
+    public static final String FLINT_HILL = "POLYGON((-77.25595325282619 38.90049514948347,-77.25389331630275 " +
+            "38.90503717840573,-77.289598882709 38.91171610485367,-77.2760376339297 " +
+            "38.889539649049034,-77.25595325282619 38.90049514948347))";
+
+//    @Test
+//    void geometry_crossed() throws GeometryParseException {
+//        GeometryCrossed gc = new GeometryCrossed();
+//        assertTrue(gc.geometry_crossed(MADISON_SCHOOL_DISTRICT,FLINT_HILL));
+//    }
 
     @Test
-    void point_contained_contained() throws ParseException {
-        double lat = 38.91376458172108;
-        double lon = -77.28468182552359;
-
-        GeoContained geoContained = new GeoContained();
-        boolean results = geoContained.point_contained(lat,lon,MADISON_SCHOOL_DISTRICT);
-        assertEquals(true, results);
-    }
-
-    @Test
-    void point_contained_not_lat() throws ParseException {
-        double lat = 38.91376458172108;
-        double lon = -78.28468182552359;
-
-        GeoContained geoContained = new GeoContained();
-        boolean results = geoContained.point_contained(lat,lon,MADISON_SCHOOL_DISTRICT);
-        assertEquals(false, results);
-    }
-
-    @Test
-    void point_contained_not_lon() throws ParseException {
-        double lat = 38.91376458172108;
-        double lon = -78.28468182552359;
-
-        GeoContained geoContained = new GeoContained();
-        boolean results = geoContained.point_contained(lat,lon,MADISON_SCHOOL_DISTRICT);
-        assertEquals(false, results);
-    }
-
-    @Test
-    void point_contained_contained_string() throws ParseException {
-        String lat = "38.91376458172108";
-        String lon = "-77.28468182552359";
-
-        GeoContained geoContained = new GeoContained();
-        boolean results = geoContained.point_contained(lat,lon,MADISON_SCHOOL_DISTRICT);
-        assertEquals(true, results);
-    }
-
-    @Test
-    void point_contained_contained_circle() throws ParseException {
-        String lat = "38.91376458172108";
-        String lon = "-77.28468182552359";
-
-        GeoContained geoContained = new GeoContained();
-        boolean results = geoContained.point_contained(lat,lon,MADISON_SCHOOL_DISTRICT);
-        assertEquals(true, results);
-    }
-
-    @Test
-    void geometry_crossed() {
+    void geometry_crossed_not() throws GeometryParseException {
         GeometryCrossed gc = new GeometryCrossed();
-        assertFalse(gc.geometry_crossed("",""));
+        assertFalse(gc.geometry_crossed(MADISON_SCHOOL_DISTRICT,OAKTON_SCHOOL_DISTRICT));
+    }
+
+    @Test
+    void geometry_crossed_empty_string_exception() {
+        GeometryCrossed gc = new GeometryCrossed();
+        try {
+            gc.geometry_crossed(MADISON_SCHOOL_DISTRICT,"");
+        } catch (GeometryParseException e) {
+            assertNotNull(e);
+            return;
+        }
+        fail();
     }
 }
