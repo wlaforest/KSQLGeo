@@ -1,6 +1,8 @@
 package com.github.wlaforest.ksql.udf;
 
+import io.confluent.ksql.function.udf.Udf;
 import io.confluent.ksql.function.udf.UdfDescription;
+import io.confluent.ksql.function.udf.UdfParameter;
 import org.locationtech.jts.geom.Geometry;
 
 
@@ -14,7 +16,12 @@ import org.locationtech.jts.geom.Geometry;
 )
 
 public class GeometryCrossed extends GeometryBase {
-    public boolean geometry_crossed(String wkt1, String wkt2) throws GeometryParseException {
+    @Udf(description = "determines if a the two WKT geometriess cross.")
+    public boolean geometry_crossed(
+            @UdfParameter(value = "wkt1", description = "WKT Encoded Geometry to check for crossing with wk2") final String wkt1,
+            @UdfParameter(value = "wkt1", description = "WKT Encoded Geometry to check for crossing with wk1") final String wkt2)
+            throws GeometryParseException {
+
         Geometry geometry1 = getGeometryWKT(wkt1);
         Geometry geometry2 = getGeometryWKT(wkt2);
 

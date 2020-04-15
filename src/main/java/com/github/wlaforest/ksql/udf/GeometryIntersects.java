@@ -1,6 +1,8 @@
 package com.github.wlaforest.ksql.udf;
 
+import io.confluent.ksql.function.udf.Udf;
 import io.confluent.ksql.function.udf.UdfDescription;
+import io.confluent.ksql.function.udf.UdfParameter;
 import org.locationtech.jts.geom.Geometry;
 
 
@@ -14,7 +16,11 @@ import org.locationtech.jts.geom.Geometry;
 )
 
 public class GeometryIntersects extends GeometryBase {
-    public boolean geometry_intersects(String wkt1, String wkt2) throws GeometryParseException {
+    @Udf(description = "determines if a the two WKT geometriess intersect.")
+    public boolean geometry_intersects(
+            @UdfParameter(value = "wkt1", description = "WKT Encoded Geometry to check for intersection with wk2") final String wkt1,
+            @UdfParameter(value = "wkt1", description = "WKT Encoded Geometry to check for intersection with wk1") final String wkt2)
+            throws GeometryParseException {
         Geometry geometry1 = getGeometryWKT(wkt1);
         Geometry geometry2 = getGeometryWKT(wkt2);
 
