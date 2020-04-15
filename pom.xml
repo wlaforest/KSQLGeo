@@ -45,6 +45,11 @@
             <name>Maven Central</name>
             <url>https://repo1.maven.org/maven2/</url>
         </repository>
+        <repository>
+            <id>github-releases</id>
+            <url>https://repo.osgeo.org/repository/release/</url>
+        </repository>
+
     </repositories>
 
     <!--
@@ -114,12 +119,12 @@
             <artifactId>jts-core</artifactId>
             <version>1.16.1</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.geotools/gt-main -->
         <dependency>
             <groupId>org.geotools</groupId>
             <artifactId>gt-main</artifactId>
-            <version>24-SNAPSHOT</version>
+            <version>23.0</version>
         </dependency>
-
 
         <!-- Test dependencies -->
         <dependency>
