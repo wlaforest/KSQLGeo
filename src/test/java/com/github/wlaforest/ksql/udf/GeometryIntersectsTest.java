@@ -61,4 +61,11 @@ class GeometryIntersectsTest {
         GeometryIntersects gc = new GeometryIntersects();
         assertFalse(gc.geometry_intersects(MADISON_SCHOOL_DISTRICT,OAKTON_SCHOOL_DISTRICT));
     }
+
+    @Test
+    void geometry_intersects_geojson_not() throws GeometryParseException {
+        GeometryIntersects gc = new GeometryIntersects();
+        assertFalse(gc.geometry_intersects(MADISON_SCHOOL_DISTRICT_GEOJSON, OAKTON_SCHOOL_DISTRICT_GEOJSON));
+    }
+
 }
