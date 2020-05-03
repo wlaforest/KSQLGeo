@@ -22,7 +22,7 @@ public class GeometryContained extends GeometryBase {
             @UdfParameter(value = "longitude", description = "the longitude of the point") final double longitude,
             @UdfParameter(value = "geometryWKT", description = "WKT Encoded Geometry to check for enclosure") final String containerWKT) throws GeometryParseException {
 
-        Geometry geometry = getGeometryWKT(containerWKT);
+        Geometry geometry = getGeometryFromString(containerWKT);
         Geometry point = getPoint(longitude, latitude);
 
         if (point.within(geometry)) {

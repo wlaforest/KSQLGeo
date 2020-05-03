@@ -1,6 +1,8 @@
 package com.github.wlaforest.ksql.udf;
 
 import org.geotools.geometry.jts.JTSFactoryFinder;
+import org.locationtech.jts.io.geojson.GeoJsonReader;
+
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryFactory;
@@ -12,18 +14,34 @@ abstract class GeometryBase
 {
     private GeometryFactory geometryFactory = JTSFactoryFinder.getGeometryFactory();
 
-    protected Geometry getGeometryWKT(String WKT) throws GeometryParseException {
+    protected Geometry getGeometryFromString(String stringEncoding) throws GeometryParseException {
 
         WKTReader reader = new WKTReader(geometryFactory);
-        Polygon polygon = null;
+
+        Geometry geometry;
         try {
-            polygon = (Polygon) reader.read(WKT);
-        } catch (ParseException e) {
-            throw new GeometryParseException("Bad WKT Encoding " + WKT, e);
+            geometry = reader.read(stringEncoding);
+
+            if (geometry == null)
+            {
+                GeoJsonReader gjr = new GeoJsonReader();
+                geometry = gjr.read(stringEncoding);
+            }
+
+            } catch (ParseException e) {
+            GeoJsonReader gjr = new GeoJsonReader();
+            try {
+                geometry = gjr.read(stringEncoding);
+            } catch (ParseException e1) {
+                throw new GeometryParseException("Bad string encoding: " + stringEncoding, e);
+            }
         }
-        if (polygon == null)
-            throw new GeometryParseException("Bad WKT Encoding " + WKT);
-        return polygon;
+
+        if (geometry == null)
+        {
+            throw new GeometryParseException("Bad string encoding: " + stringEncoding);
+        }
+        return geometry;
     }
 
     protected Geometry getPoint(double x, double y)

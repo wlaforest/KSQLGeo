@@ -21,8 +21,9 @@ public class GeometryIntersects extends GeometryBase {
             @UdfParameter(value = "wkt1", description = "WKT Encoded Geometry to check for intersection with wk2") final String wkt1,
             @UdfParameter(value = "wkt1", description = "WKT Encoded Geometry to check for intersection with wk1") final String wkt2)
             throws GeometryParseException {
-        Geometry geometry1 = getGeometryWKT(wkt1);
-        Geometry geometry2 = getGeometryWKT(wkt2);
+
+        Geometry geometry1 = getGeometryFromString(wkt1);
+        Geometry geometry2 = getGeometryFromString(wkt2);
 
         if (geometry2.intersects(geometry1)) {
             return true;
