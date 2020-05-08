@@ -11,18 +11,19 @@ import org.locationtech.jts.geom.Geometry;
         description = "UDF function to test containment of a geometry in another geometry.  The container " +
                 "argument will always be a polygon but the geometry to test for containment inside of the container " +
                 "can be any Geometry",
-        version = "1.0-SNAPSHOT",
+        version = "1.1",
         author = "Will LaForest"
 )
 
 public class GeometryContained extends GeometryBase {
-    @Udf(description = "determines if a double value lat/long is inside or outside the geometry passed as the 3rdparameter as WKT encoded ...")
+    @Udf(description = "determines if a double value lat/long is inside or outside the geometry passed as the " +
+            "3rd parameter encoded in either WKT OR GeoJSON.")
     public boolean geometry_contained(
             @UdfParameter(value = "latitude", description = "the latitude of the point") final double latitude,
             @UdfParameter(value = "longitude", description = "the longitude of the point") final double longitude,
-            @UdfParameter(value = "geometryWKT", description = "WKT Encoded Geometry to check for enclosure") final String containerWKT) throws GeometryParseException {
+            @UdfParameter(value = "geo", description = "WKT or GeoJSON Encoded Geometry to check for enclosure") final String geo) throws GeometryParseException {
 
-        Geometry geometry = getGeometryFromString(containerWKT);
+        Geometry geometry = getGeometryFromString(geo);
         Geometry point = getPoint(longitude, latitude);
 
         if (point.within(geometry)) {
@@ -32,11 +33,12 @@ public class GeometryContained extends GeometryBase {
         }
     }
 
-    @Udf(description = "determines if a String value lat/long is inside or outside the geometry passed as the 3rdparameter as WKT encoded ...")
+    @Udf(description = "determines if a String value lat/long is inside or outside the geometry passed as the" +
+            " 3rd parameter as wkt or geoJSON")
     public boolean geometry_contained(
             @UdfParameter(value = "latitude", description = "the latitude of the point") final String latitude,
             @UdfParameter(value = "longitude", description = "the longitude of the point") final String longitude,
-            @UdfParameter(value = "containerWKT", description = "WKT Encoded Geometry to check for enclosure") final String containerWKT) throws GeometryParseException {
-        return geometry_contained(Double.parseDouble(latitude), Double.parseDouble(longitude), containerWKT);
+            @UdfParameter(value = "geo", description = "WKT or GeoJSON Encoded Geometry to check for enclosure") final String geo) throws GeometryParseException {
+        return geometry_contained(Double.parseDouble(latitude), Double.parseDouble(longitude), geo);
     }
 }
