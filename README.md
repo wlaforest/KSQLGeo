@@ -1,12 +1,7 @@
 # KSQLGeo
 ## Description
-This project is to provide spatial and geospatial operators for KSQL.  KSQL a SQL like stream proccessing service
-that runs on top of Apache Kafka.  Currently the functions in this library are underpinned by locationtech.jts.
-The JTS Topology Suite (Java Topology Suite) is an open-source Java software library that provides an object model
-for Euclidean planar linear geometry together.  This can be used to do approximate geospatial queries but is obviously
-not as good as a spherical model: https://en.wikipedia.org/wiki/Spherical_geometry
-
-Future versions will support a spherical model as well as three dimensional operators
+This project is to provide spatial and geospatial operations for KSQL.  KSQL a SQL like stream proccessing service
+that runs on top of Apache Kafka.  Currently the functions in this library are underpinned by Spatial4j (https://github.com/locationtech/spatial4j) which supports Euclidean and Spherical modeels.  Not all shapes are supported in the spheerical model.  Currently Point, Circle and Box are suspported on a sphere.  The support matrix is documented in the above Spatial4J github repo.  This library does NOT currently support the "Cylindrical" model.
 
 ## Building KSQLGeo
 
