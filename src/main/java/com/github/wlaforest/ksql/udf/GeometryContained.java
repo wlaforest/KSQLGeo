@@ -23,14 +23,8 @@ public class GeometryContained extends GeometryBase {
             @UdfParameter(value = "longitude", description = "the longitude of the point") final double longitude,
             @UdfParameter(value = "geo", description = "WKT or GeoJSON Encoded Geometry to check for enclosure") final String geo) throws GeometryParseException {
 
-        Geometry geometry = getGeometryFromString(geo);
-        Geometry point = getPoint(longitude, latitude);
+        return super.spatial4JHelper.contained(geo, latitude, longitude, true);
 
-        if (point.within(geometry)) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
     @Udf(description = "determines if a String value lat/long is inside or outside the geometry passed as the" +

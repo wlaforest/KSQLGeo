@@ -6,43 +6,14 @@ import org.locationtech.jts.io.geojson.GeoJsonReader;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryFactory;
-import org.locationtech.jts.geom.Polygon;
 import org.locationtech.jts.io.ParseException;
 import org.locationtech.jts.io.WKTReader;
 
 abstract class GeometryBase
 {
+    protected static Spatial4JHelper spatial4JHelper = new Spatial4JHelper();
+
     private GeometryFactory geometryFactory = JTSFactoryFinder.getGeometryFactory();
-
-    protected Geometry getGeometryFromString(String stringEncoding) throws GeometryParseException {
-
-        WKTReader reader = new WKTReader(geometryFactory);
-
-        Geometry geometry;
-        try {
-            geometry = reader.read(stringEncoding);
-
-            if (geometry == null)
-            {
-                GeoJsonReader gjr = new GeoJsonReader();
-                geometry = gjr.read(stringEncoding);
-            }
-
-            } catch (ParseException e) {
-            GeoJsonReader gjr = new GeoJsonReader();
-            try {
-                geometry = gjr.read(stringEncoding);
-            } catch (ParseException e1) {
-                throw new GeometryParseException("Bad string encoding: " + stringEncoding, e);
-            }
-        }
-
-        if (geometry == null)
-        {
-            throw new GeometryParseException("Bad string encoding: " + stringEncoding);
-        }
-        return geometry;
-    }
 
     protected Geometry getPoint(double x, double y)
     {

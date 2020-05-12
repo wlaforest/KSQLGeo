@@ -4,6 +4,8 @@ import io.confluent.ksql.function.udf.Udf;
 import io.confluent.ksql.function.udf.UdfDescription;
 import io.confluent.ksql.function.udf.UdfParameter;
 import org.locationtech.jts.geom.Geometry;
+import org.locationtech.spatial4j.context.SpatialContext;
+import org.locationtech.spatial4j.io.WKTReader;
 
 
 @UdfDescription(
@@ -16,19 +18,22 @@ import org.locationtech.jts.geom.Geometry;
 )
 
 public class GeometryIntersects extends GeometryBase {
+
     @Udf(description = "determines if a the two geometries intersect.")
     public boolean geometry_intersects(
             @UdfParameter(value = "geo1", description = "WKT or GeoJSON Encoded Geometry to check for intersection with geo2") final String geo1,
             @UdfParameter(value = "geo2", description = "WKT or GeoJSON Encoded Geometry to check for intersection with geo1") final String geo2)
             throws GeometryParseException {
 
-        Geometry geometry1 = getGeometryFromString(geo1);
-        Geometry geometry2 = getGeometryFromString(geo2);
+        return spatial4JHelper.intersect(geo1,geo2, true);
+    }
 
-        if (geometry2.intersects(geometry1)) {
-            return true;
-        } else {
-            return false;
-        }
+    @Udf(description = "determines if a the two geometries intersect with a spherical model.")
+    public boolean geometry_intersects_sphere(
+            @UdfParameter(value = "geo1", description = "WKT or GeoJSON Encoded Geometry to check for intersection with geo2") final String geo1,
+            @UdfParameter(value = "geo2", description = "WKT or GeoJSON Encoded Geometry to check for intersection with geo1") final String geo2)
+            throws GeometryParseException {
+
+        return spatial4JHelper.intersect(geo1,geo2, false);
     }
 }
