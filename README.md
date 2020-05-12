@@ -24,7 +24,7 @@ Then build the code using Maven:
 Copy the uber jar into your KSQL server extension direrctory (specified  by ksql.extension.dir in KSQL configuration
 file ksql-server.properties. If this directory does not exist yet, simply create a new
 
-    $ cp target/ksqlgeo-1.0-SNAPSHOT.jar $KSQL-EXTENSION/
+    $ cp target/ksqlgeo-1.1.jar $KSQL-EXTENSION/
 
 In order for KSQL to pick up the geospatial UDFS you need to restart ksql-server.  Once you have done that you can
 demonstrate it working.  First insert some data. These queries will create a stream with records that have the
