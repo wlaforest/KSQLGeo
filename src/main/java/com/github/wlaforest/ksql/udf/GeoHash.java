@@ -11,9 +11,9 @@ import org.locationtech.spatial4j.io.GeohashUtils;
         version = "1.1",
         author = "Will LaForest"
 )
-public class GeoHash extends GeometryBase
+public class GeoHash
 {
-    @Udf(description = "Function to calculate thee geohash of a given point.")
+    @Udf(description = "Function to calculate the geohash of a given point.")
     public String geo_hash(
             @UdfParameter(value = "lat", description = "latitude")double lat,
             @UdfParameter(value = "lat", description = "latitude")double lon) throws GeoHashBadParameterException {

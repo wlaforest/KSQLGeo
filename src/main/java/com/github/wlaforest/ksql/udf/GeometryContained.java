@@ -14,7 +14,6 @@ import org.locationtech.jts.geom.Geometry;
         version = "1.1",
         author = "Will LaForest"
 )
-
 public class GeometryContained extends GeometryBase {
     @Udf(description = "determines if a double value lat/long is inside or outside the geometry passed as the " +
             "3rd parameter encoded in either WKT OR GeoJSON.")
