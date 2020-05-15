@@ -23,7 +23,7 @@ public class GeometryContained extends GeometryBase {
             @UdfParameter(value = "longitude", description = "the longitude of the point") final double longitude,
             @UdfParameter(value = "geo", description = "WKT or GeoJSON Encoded Geometry to check for enclosure") final String geo) throws GeometryParseException {
 
-        return super.spatial4JHelper.contained(geo, latitude, longitude, true);
+        return getSpatial4JHelper().contained(geo, latitude, longitude, true);
 
     }
 

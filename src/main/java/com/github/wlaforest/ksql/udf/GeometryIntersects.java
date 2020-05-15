@@ -16,7 +16,6 @@ import org.locationtech.spatial4j.io.WKTReader;
         version = "1.1",
         author = "Will LaForest"
 )
-
 public class GeometryIntersects extends GeometryBase {
 
     @Udf(description = "determines if a the two geometries intersect.")
@@ -25,7 +24,7 @@ public class GeometryIntersects extends GeometryBase {
             @UdfParameter(value = "geo2", description = "WKT or GeoJSON Encoded Geometry to check for intersection with geo1") final String geo2)
             throws GeometryParseException {
 
-        return spatial4JHelper.intersect(geo1,geo2, true);
+        return getSpatial4JHelper().intersect(geo1,geo2, true);
     }
 
     @Udf(description = "determines if a the two geometries intersect with a spherical model.")
@@ -34,6 +33,6 @@ public class GeometryIntersects extends GeometryBase {
             @UdfParameter(value = "geo2", description = "WKT or GeoJSON Encoded Geometry to check for intersection with geo1") final String geo2)
             throws GeometryParseException {
 
-        return spatial4JHelper.intersect(geo1,geo2, false);
+        return getSpatial4JHelper().intersect(geo1,geo2, false);
     }
 }
