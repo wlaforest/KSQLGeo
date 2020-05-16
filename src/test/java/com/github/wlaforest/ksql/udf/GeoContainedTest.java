@@ -13,8 +13,8 @@ class GeoContainedTest {
         double lat = 38.91376458172108;
         double lon = -77.28468182552359;
 
-        GeometryContained geometryContained = new GeometryContained();
-        boolean results = geometryContained.geometry_contained(lat,lon, TestStrings.MADISON_SCHOOL_DISTRICT);
+        GeoContained geometryContained = new GeoContained();
+        boolean results = geometryContained.geo_contained(lat,lon, TestStrings.MADISON_SCHOOL_DISTRICT);
         assertEquals(true, results);
     }
 
@@ -23,8 +23,8 @@ class GeoContainedTest {
         double lat = 38.91376458172108;
         double lon = -78.28468182552359;
 
-        GeometryContained geometryContained = new GeometryContained();
-        boolean results = geometryContained.geometry_contained(lat,lon,TestStrings.MADISON_SCHOOL_DISTRICT);
+        GeoContained geometryContained = new GeoContained();
+        boolean results = geometryContained.geo_contained(lat,lon,TestStrings.MADISON_SCHOOL_DISTRICT);
         assertEquals(false, results);
     }
 
@@ -33,8 +33,8 @@ class GeoContainedTest {
         double lat = 38.91376458172108;
         double lon = -78.28468182552359;
 
-        GeometryContained geometryContained = new GeometryContained();
-        boolean results = geometryContained.geometry_contained(lat,lon,TestStrings.MADISON_SCHOOL_DISTRICT);
+        GeoContained geometryContained = new GeoContained();
+        boolean results = geometryContained.geo_contained(lat,lon,TestStrings.MADISON_SCHOOL_DISTRICT);
         assertEquals(false, results);
     }
 
@@ -43,8 +43,8 @@ class GeoContainedTest {
         String lat = "38.91376458172108";
         String lon = "-77.28468182552359";
 
-        GeometryContained geometryContained = new GeometryContained();
-        boolean results = geometryContained.geometry_contained(lat,lon,TestStrings.MADISON_SCHOOL_DISTRICT);
+        GeoContained geometryContained = new GeoContained();
+        boolean results = geometryContained.geo_contained(lat,lon,TestStrings.MADISON_SCHOOL_DISTRICT);
         assertEquals(true, results);
     }
 
@@ -53,8 +53,8 @@ class GeoContainedTest {
         String lat = "38.91376458172108";
         String lon = "-77.28468182552359";
 
-        GeometryContained geometryContained = new GeometryContained();
-        boolean results = geometryContained.geometry_contained(lat,lon,TestStrings.MADISON_SCHOOL_DISTRICT);
+        GeoContained geometryContained = new GeoContained();
+        boolean results = geometryContained.geo_contained(lat,lon,TestStrings.MADISON_SCHOOL_DISTRICT);
         assertEquals(true, results);
     }
 }
