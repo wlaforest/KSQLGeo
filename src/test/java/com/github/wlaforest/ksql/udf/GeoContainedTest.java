@@ -57,4 +57,13 @@ class GeoContainedTest {
         boolean results = geometryContained.geo_contained(lat,lon,TestStrings.MADISON_SCHOOL_DISTRICT);
         assertEquals(true, results);
     }
+
+    @Test
+    void point_contain_geoJSON() throws GeometryParseException {
+        double lat = 49.43663;
+        double lon = 7.76968;
+        GeoContained geoContained = new GeoContained();
+        assertEquals(true, geoContained.geo_contained(lon, lat, TestStrings.GEOJSON_TEST));
+
+    }
 }
