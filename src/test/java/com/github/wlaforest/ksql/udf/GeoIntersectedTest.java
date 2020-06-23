@@ -42,4 +42,13 @@ class GeoIntersectedTest
         GeoIntersected gc = new GeoIntersected();
         assertTrue(gc.geo_intersected(TestStrings.MADISON_SCHOOL_DISTRICT, TestStrings.FLINT_HILL));
     }
+
+    @Test
+    void geometry_interssect_long_shape() throws GeometryParseException {
+        System.out.println(TestStrings.SHORT_POLY_JSON);
+        System.out.println(TestStrings.LINE_STRING_JSON);
+        GeoIntersected gi = new GeoIntersected();
+//        assertTrue(gi.geo_intersected(POLY_JSON,POLY_JSON));
+
+    }
 }
