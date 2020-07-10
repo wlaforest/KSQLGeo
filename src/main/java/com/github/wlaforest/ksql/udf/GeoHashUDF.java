@@ -9,10 +9,10 @@ import org.locationtech.spatial4j.io.GeohashUtils;
         name = "geo_hash",
         description = "Function to calculate the geohash of a given point.  Based on the Lucene code" +
                 "https://lucene.apache.org/core/5_5_0/spatial/org/apache/lucene/spatial/util/GeoHashUtils.html",
-        version = "1.1",
+        version = "1.2",
         author = "Will LaForest"
 )
-public class GeoHash
+public class GeoHashUDF
 {
     @Udf(description = "Function to calculate the geohash of a given point.  Precision defaults to 12")
     public String geo_hash(

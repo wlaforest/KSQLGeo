@@ -10,10 +10,10 @@ import io.confluent.ksql.function.udf.UdfParameter;
         description = "UDF function to test containment of a geometry in another geometry.  The container " +
                 "argument will always be a polygon but the geometry to test for containment inside of the container " +
                 "can be any Geometry",
-        version = "1.1",
+        version = "1.2",
         author = "Will LaForest"
 )
-public class GeoContained extends GeometryBase {
+public class GeoContainedUDF extends GeometryBase {
     @Udf(description = "determines if a double value lat/long is inside or outside the geometry passed as the " +
             "3rd parameter encoded in either WKT OR GeoJSON.")
     public boolean geo_contained(

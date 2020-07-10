@@ -3,29 +3,29 @@ package com.github.wlaforest.ksql.udf;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class GeoHashTest
+public class GeoHashUDFTest
 {
     @Test
-    void testSimple() throws GeoHash.GeoHashBadParameterException {
-        GeoHash gh = new GeoHash();
+    void testSimple() throws GeoHashUDF.GeoHashBadParameterException {
+        GeoHashUDF gh = new GeoHashUDF();
         String result = gh.geo_hash(-82,76);
         assertNotNull(result);
     }
 
     @Test
-    void testPrecion() throws GeoHash.GeoHashBadParameterException {
-        GeoHash gh = new GeoHash();
+    void testPrecion() throws GeoHashUDF.GeoHashBadParameterException {
+        GeoHashUDF gh = new GeoHashUDF();
         String result = gh.geo_hash(-82,76);
         assertNotNull(result);
     }
 
     @Test
     void testBadValues() {
-        GeoHash gh = new GeoHash();
+        GeoHashUDF gh = new GeoHashUDF();
         try{
             gh.geo_hash(-82032,74436);
         }
-        catch ( GeoHash.GeoHashBadParameterException ghb)
+        catch ( GeoHashUDF.GeoHashBadParameterException ghb)
         {
             return;
         }
