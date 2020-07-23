@@ -7,10 +7,9 @@ import io.confluent.ksql.function.udf.UdfParameter;
 
 @UdfDescription(
         name = "geo_contained",
-        description = "UDF function to test containment of a geometry in another geometry.  The container " +
-                "argument will always be a polygon but the geometry to test for containment inside of the container " +
-                "can be any Geometry",
-        version = "1.2",
+        description = "UDF function to test containment of a point in a geometry.  Geometry can be encoded in WKT" +
+                "or GeoJSON.  null paremeters will always result in false",
+        version = "1.2.1",
         author = "Will LaForest"
 )
 public class GeoContainedUDF extends GeometryBase {
@@ -20,9 +19,14 @@ public class GeoContainedUDF extends GeometryBase {
             @UdfParameter(value = "latitude", description = "the latitude of the point") final double latitude,
             @UdfParameter(value = "longitude", description = "the longitude of the point") final double longitude,
             @UdfParameter(value = "geo", description = "WKT or GeoJSON Encoded Geometry to check for enclosure") final String geo) throws GeometryParseException {
-
-        return getSpatial4JHelper().contained(geo, latitude, longitude, true);
-
+        try {
+            if (geo == null) return false;
+            return getSpatial4JHelper().contained(geo, latitude, longitude, true);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
     }
 
     @Udf(description = "determines if a String value lat/long is inside or outside the geometry passed as the" +
@@ -31,6 +35,7 @@ public class GeoContainedUDF extends GeometryBase {
             @UdfParameter(value = "latitude", description = "the latitude of the point") final String latitude,
             @UdfParameter(value = "longitude", description = "the longitude of the point") final String longitude,
             @UdfParameter(value = "geo", description = "WKT or GeoJSON Encoded Geometry to check for enclosure") final String geo) throws GeometryParseException {
+        if (latitude == null || longitude == null) return false;
         return geo_contained(Double.parseDouble(latitude), Double.parseDouble(longitude), geo);
     }
 }

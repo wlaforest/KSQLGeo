@@ -21,7 +21,7 @@
 
     <groupId>io.confluent.ksql.udf</groupId>
     <artifactId>ksqlgeo</artifactId>
-    <version>1.1</version>
+    <version>1.2.1</version>
     <packaging>jar</packaging>
 
     <name>KSQL Geo</name>
