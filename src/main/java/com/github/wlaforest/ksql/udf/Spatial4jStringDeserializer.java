@@ -11,6 +11,10 @@ import java.text.ParseException;
 
 public class Spatial4jStringDeserializer {
 
+    public static final String UNABLE_TO_DECODE_MSG = "Unable to decode shape: ";
+    public static final String MODEL_DOES_NOT_SUPPORT_SHAPE_MSG = "Spherical model does not support shape: ";
+
+
     private SpatialContextFactory scf;
     private SpatialContext sc;
 
@@ -26,7 +30,6 @@ public class Spatial4jStringDeserializer {
         Shape shape;
 
         WKTReader reader = new WKTReader(sc, scf);
-
         try {
              shape = reader.parse(stringEncoding);
              if (shape != null) return shape;
@@ -38,10 +41,15 @@ public class Spatial4jStringDeserializer {
         try {
             shape = gjr.read(new StringReader(stringEncoding));
             if (shape != null) return shape;
+        } catch (UnsupportedOperationException eUnsupported) {
+            if (eUnsupported.getMessage().contains("Unsupported shape"))
+                throw new GeometryParseException(MODEL_DOES_NOT_SUPPORT_SHAPE_MSG + stringEncoding, eUnsupported);
+            else
+                throw new GeometryParseException(UNABLE_TO_DECODE_MSG + stringEncoding,eUnsupported);
         } catch (Exception e) {
-            throw new GeometryParseException("Bad string encoding: " + stringEncoding,e);
+            throw new GeometryParseException(UNABLE_TO_DECODE_MSG + stringEncoding,e);
         }
 
-        throw new GeometryParseException("Bad string encoding: " + stringEncoding);
+        throw new GeometryParseException(UNABLE_TO_DECODE_MSG + stringEncoding);
     }
 }
