@@ -41,3 +41,7 @@ against the data you already added
     EMIT CHANGES;
 
 You should get the record for Madison
+
+## Demonstration
+
+For a demonsrattion see seperat github repo: https://github.com/wlaforest/KafkaGeoDemo
