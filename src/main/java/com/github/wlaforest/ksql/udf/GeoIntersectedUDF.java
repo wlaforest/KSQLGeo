@@ -23,6 +23,6 @@ public class GeoIntersectedUDF extends GeometryBase {
             @UdfParameter(value = "geo2", description = "WKT or GeoJSON Encoded Geometry to check for intersection with geo1") final String geo2)
             throws GeometryParseException {
 
-        return getSpatial4JHelper().intersect(geo1,geo2, true);
+        return getSpatial4JHelper().intersect(geo1,geo2);
     }
 }

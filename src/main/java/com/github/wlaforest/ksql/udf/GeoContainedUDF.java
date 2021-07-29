@@ -21,7 +21,7 @@ public class GeoContainedUDF extends GeometryBase {
             @UdfParameter(value = "geo", description = "WKT or GeoJSON Encoded Geometry to check for enclosure") final String geo) throws GeometryParseException {
         try {
             if (geo == null) return false;
-            return getSpatial4JHelper().contained(geo, latitude, longitude, true);
+            return getSpatial4JHelper().contained(geo, latitude, longitude);
         }
         catch (Exception e) {
             e.printStackTrace();
