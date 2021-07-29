@@ -14,7 +14,7 @@ class GeoContainedUDFTest {
         double lon = -77.28468182552359;
 
         GeoContainedUDF geometryContained = new GeoContainedUDF();
-        boolean results = geometryContained.geo_contained(lat,lon, TestStrings.MADISON_SCHOOL_DISTRICT);
+        boolean results = geometryContained.geo_contained(lat,lon, TestStrings.MADISON_SCHOOL_DISTRICT_POLYGON_WKT);
         assertEquals(true, results);
     }
 
@@ -24,7 +24,7 @@ class GeoContainedUDFTest {
         double lon = -78.28468182552359;
 
         GeoContainedUDF geometryContained = new GeoContainedUDF();
-        boolean results = geometryContained.geo_contained(lat,lon,TestStrings.MADISON_SCHOOL_DISTRICT);
+        boolean results = geometryContained.geo_contained(lat,lon,TestStrings.MADISON_SCHOOL_DISTRICT_POLYGON_WKT);
         assertEquals(false, results);
     }
 
@@ -34,7 +34,7 @@ class GeoContainedUDFTest {
         double lon = -78.28468182552359;
 
         GeoContainedUDF geometryContained = new GeoContainedUDF();
-        boolean results = geometryContained.geo_contained(lat,lon,TestStrings.MADISON_SCHOOL_DISTRICT);
+        boolean results = geometryContained.geo_contained(lat,lon,TestStrings.MADISON_SCHOOL_DISTRICT_POLYGON_WKT);
         assertEquals(false, results);
     }
 
@@ -44,7 +44,7 @@ class GeoContainedUDFTest {
         String lon = "-77.28468182552359";
 
         GeoContainedUDF geometryContained = new GeoContainedUDF();
-        boolean results = geometryContained.geo_contained(lat,lon,TestStrings.MADISON_SCHOOL_DISTRICT);
+        boolean results = geometryContained.geo_contained(lat,lon,TestStrings.MADISON_SCHOOL_DISTRICT_POLYGON_WKT);
         assertEquals(true, results);
     }
 
@@ -54,7 +54,7 @@ class GeoContainedUDFTest {
         String lon = "-77.28468182552359";
 
         GeoContainedUDF geometryContained = new GeoContainedUDF();
-        boolean results = geometryContained.geo_contained(lat,lon,TestStrings.MADISON_SCHOOL_DISTRICT);
+        boolean results = geometryContained.geo_contained(lat,lon,TestStrings.MADISON_SCHOOL_DISTRICT_POLYGON_WKT);
         assertEquals(true, results);
     }
 
