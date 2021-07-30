@@ -1,7 +1,7 @@
 # KSQLGeo
 ## Description
 This project is to provide spatial and geospatial operations for KSQL.  KSQL a SQL like stream proccessing service
-that runs on top of Apache Kafka.  Currently the functions in this library are underpinned by Spatial4j (https://github.com/locationtech/spatial4j) which supports Euclidean and Spherical modeels.  Not all shapes are supported in the spheerical model.  Currently Point, Circle and Box are suspported on a sphere.  The support matrix is documented in the above Spatial4J github repo.  This library does NOT currently support the "Cylindrical" model.
+that runs on top of Apache Kafka.  Currently the functions in this library are underpinned by Spatial4j (https://github.com/locationtech/spatial4j) which supports Euclidean and Spherical modeels.  Not all shapes are supported in the spheerical model.  Currently Point, Circle and Box are suspported on a sphere.  The support matrix is documented in the above Spatial4J github repo.  While Spatial4J supports the "Cylindrical" model KSQLGeo does not yet.
 
 ## Building KSQLGeo
 
@@ -19,7 +19,7 @@ Then build the code using Maven:
 Copy the uber jar into your KSQL server extension direrctory (specified  by ksql.extension.dir in KSQL configuration
 file ksql-server.properties. If this directory does not exist yet, simply create a new
 
-    $ cp target/ksqlgeo-1.1.jar $KSQL-EXTENSION/
+    $ cp target/ksqlgeo-1.2.jar $KSQL-EXTENSION/
 
 In order for KSQL to pick up the geospatial UDFS you need to restart ksql-server.  Once you have done that you can
 demonstrate it working.  First insert some data. These queries will create a stream with records that have the
@@ -41,3 +41,7 @@ against the data you already added
     EMIT CHANGES;
 
 You should get the record for Madison
+
+## Demonstration
+
+For a demonsrattion see seperat github repo: https://github.com/wlaforest/KafkaGeoDemo
