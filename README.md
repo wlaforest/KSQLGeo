@@ -9,6 +9,11 @@ Spatial4j (https://github.com/locationtech/spatial4j).
 KSQLGeo uses the deserializtion from Spatial4J and currently support GeoJSON and WKT.  For more information about the
 specifics of this see https://github.com/locationtech/spatial4j/blob/master/FORMATS.md
 
+## Re-keying with UDTF
+
+KSQLGeo has added a new UDTF function called geo_covering_geohashes which will emit all the geohashes which cover a given shape.  This is important becasue when
+you join two geospatial streams you need a common key for the on clause.  Since a shape can span multiple geohashes it is necessary to emit mutliple copies of the same record each with a seperate key to cover all possibled geohshes it falls into.  
+
 ## Building KSQLGeo
 
 ### Building the code
