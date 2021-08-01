@@ -1,7 +1,13 @@
 # KSQLGeo
 ## Description
-This project is to provide spatial and geospatial operations for KSQL.  KSQL a SQL like stream proccessing service
-that runs on top of Apache Kafka.  Currently the functions in this library are underpinned by Spatial4j (https://github.com/locationtech/spatial4j) which supports Euclidean and Spherical modeels.  Not all shapes are supported in the spheerical model.  Currently Point, Circle and Box are suspported on a sphere.  The support matrix is documented in the above Spatial4J github repo.  While Spatial4J supports the "Cylindrical" model KSQLGeo does not yet.
+This project provides geosptial functions for ksqlDB.  ksqlDB a stream processing project that uses SQL like syntax
+and runs on top of Apache Kafka (https://ksqldb.io/).  Currently, the functions in this library are underpinned by 
+Spatial4j (https://github.com/locationtech/spatial4j). 
+
+## Encodings
+
+KSQLGeo uses the deserializtion from Spatial4J and currently support GeoJSON and WKT.  For more information about the
+specifics of this see https://github.com/locationtech/spatial4j/blob/master/FORMATS.md
 
 ## Building KSQLGeo
 
@@ -16,8 +22,8 @@ Then build the code using Maven:
 
     $ mvn clean package
 
-Copy the uber jar into your KSQL server extension direrctory (specified  by ksql.extension.dir in KSQL configuration
-file ksql-server.properties. If this directory does not exist yet, simply create a new
+Copy the uber jar into your KSQL server extension directory (specified by ksql.extension.dir in KSQL configuration
+file ksql-server.properties). If this directory does not exist yet, simply create a new
 
     $ cp target/ksqlgeo-1.2.jar $KSQL-EXTENSION/
 
@@ -33,7 +39,7 @@ approximate school boundaries.
     INSERT INTO SCHOOLS VALUES ('Oakton', 'Oakton', true,
        'POLYGON((-77.3029731301166 38.871966195174494,-77.26846919334902 38.89027347822612,-77.29662165916933 38.88492877364056,-77.34846339500918 38.89575138309681,-77.33249888695254 38.8699614616396,-77.3029731301166 38.871966195174494))');
 
-Now lets test to see which of thee records intersects with this polygon.  set auto.offset.reset = Earliest to test
+Now lets test to see which of the records intersects with this polygon.  set auto.offset.reset = Earliest to test
 against the data you already added
 
     SELECT * from  SCHOOLS
@@ -44,4 +50,4 @@ You should get the record for Madison
 
 ## Demonstration
 
-For a demonsrattion see seperat github repo: https://github.com/wlaforest/KafkaGeoDemo
+For a demonsrattion see seperate github repo: https://github.com/wlaforest/KafkaGeoDemo

@@ -2,11 +2,13 @@ package com.github.wlaforest.ksql.udf;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
-class GeoContainedUDFTest {
+class GeoContainedUDFTest extends BaseGeoUnitTest {
 
-
+    GeoContainedUDFTest() {
+        super(GeoContainedUDFTest.class);
+    }
 
     @Test
     void point_contained_contained() throws GeometryParseException {
@@ -14,8 +16,8 @@ class GeoContainedUDFTest {
         double lon = -77.28468182552359;
 
         GeoContainedUDF geometryContained = new GeoContainedUDF();
-        boolean results = geometryContained.geo_contained(lat,lon, TestStrings.MADISON_SCHOOL_DISTRICT_POLYGON_WKT);
-        assertEquals(true, results);
+        boolean results = geometryContained.geo_contained(lat,lon, ts("MADISON_SCHOOL_DISTRICT_POLYGON_WKT.txt"));
+        assertTrue(results);
     }
 
     @Test
@@ -24,8 +26,8 @@ class GeoContainedUDFTest {
         double lon = -78.28468182552359;
 
         GeoContainedUDF geometryContained = new GeoContainedUDF();
-        boolean results = geometryContained.geo_contained(lat,lon,TestStrings.MADISON_SCHOOL_DISTRICT_POLYGON_WKT);
-        assertEquals(false, results);
+        boolean results = geometryContained.geo_contained(lat,lon,ts("MADISON_SCHOOL_DISTRICT_POLYGON_WKT.txt"));
+        assertFalse(results);
     }
 
     @Test
@@ -34,8 +36,8 @@ class GeoContainedUDFTest {
         double lon = -78.28468182552359;
 
         GeoContainedUDF geometryContained = new GeoContainedUDF();
-        boolean results = geometryContained.geo_contained(lat,lon,TestStrings.MADISON_SCHOOL_DISTRICT_POLYGON_WKT);
-        assertEquals(false, results);
+        boolean results = geometryContained.geo_contained(lat,lon,ts("MADISON_SCHOOL_DISTRICT_POLYGON_WKT.txt"));
+        assertFalse(results);
     }
 
     @Test
@@ -44,8 +46,8 @@ class GeoContainedUDFTest {
         String lon = "-77.28468182552359";
 
         GeoContainedUDF geometryContained = new GeoContainedUDF();
-        boolean results = geometryContained.geo_contained(lat,lon,TestStrings.MADISON_SCHOOL_DISTRICT_POLYGON_WKT);
-        assertEquals(true, results);
+        boolean results = geometryContained.geo_contained(lat,lon,ts("MADISON_SCHOOL_DISTRICT_POLYGON_WKT.txt"));
+        assertTrue(results);
     }
 
     @Test
@@ -54,16 +56,17 @@ class GeoContainedUDFTest {
         String lon = "-77.28468182552359";
 
         GeoContainedUDF geometryContained = new GeoContainedUDF();
-        boolean results = geometryContained.geo_contained(lat,lon,TestStrings.MADISON_SCHOOL_DISTRICT_POLYGON_WKT);
-        assertEquals(true, results);
+        boolean results = geometryContained.geo_contained(lat,lon,ts("MADISON_SCHOOL_DISTRICT_POLYGON_WKT.txt"));
+        assertTrue(results);
     }
 
+    @SuppressWarnings("SpellCheckingInspection")
     @Test
     void point_contain_geoJSON() throws GeometryParseException {
         double lat = 49.43663;
         double lon = 7.76968;
         GeoContainedUDF geoContained = new GeoContainedUDF();
-        assertEquals(true, geoContained.geo_contained(lon, lat, TestStrings.GEOJSON_TEST));
+        assertTrue(geoContained.geo_contained(lon, lat, ts("GEOJSON_TEST.json")));
 
     }
 }

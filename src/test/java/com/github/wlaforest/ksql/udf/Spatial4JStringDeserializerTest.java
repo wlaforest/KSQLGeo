@@ -7,13 +7,18 @@ import org.locationtech.spatial4j.shape.Shape;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class Spatial4JStringDeserializerTest {
+class Spatial4JStringDeserializerTest extends BaseGeoUnitTest {
+
+    Spatial4JStringDeserializerTest()
+    {
+        super(Spatial4JStringDeserializerTest.class);
+    }
 
     @Test
     public void testWktEuclidean() throws GeometryParseException {
         SpatialContextFactory scf = new JtsSpatialContextFactory();
         Spatial4jStringDeserializer ssd = new Spatial4jStringDeserializer(scf, scf.newSpatialContext());
-        Shape flintHill = ssd.getSpatial4JShapeFromString(TestStrings.FLINT_HILL_WKT);
+        Shape flintHill = ssd.getSpatial4JShapeFromString(ts("FLINT_HILL_WKT.txt"));
         assertNotNull(flintHill);
         assertFalse(flintHill.isEmpty());
     }

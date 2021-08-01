@@ -15,8 +15,8 @@ public class Spatial4jStringDeserializer {
     public static final String MODEL_DOES_NOT_SUPPORT_SHAPE_MSG = "Spherical model does not support shape: ";
 
 
-    private SpatialContextFactory scf;
-    private SpatialContext sc;
+    private final SpatialContextFactory scf;
+    private final SpatialContext sc;
 
     public Spatial4jStringDeserializer(SpatialContextFactory scf, SpatialContext sc)
     {
