@@ -1,7 +1,13 @@
 # KSQLGeo
 ## Description
-This project is to provide spatial and geospatial operations for KSQL.  KSQL a SQL like stream proccessing service
-that runs on top of Apache Kafka.  Currently the functions in this library are underpinned by Spatial4j (https://github.com/locationtech/spatial4j) which supports Euclidean and Spherical modeels.  Not all shapes are supported in the spheerical model.  Currently Point, Circle and Box are suspported on a sphere.  The support matrix is documented in the above Spatial4J github repo.  While Spatial4J supports the "Cylindrical" model KSQLGeo does not yet.
+This project provides geosptial functions for ksqlDB.  ksqlDB a stream processing project that uses SQL like syntax
+and runs on top of Apache Kafka (https://ksqldb.io/).  Currently the functions in this library are underpinned by 
+Spatial4j (https://github.com/locationtech/spatial4j). 
+
+## Encodings
+
+KSQLGeo uses the deserializtion from Spatial4J and currently support GeoJSON and WKT.  For more information about the
+specifics of this see https://github.com/locationtech/spatial4j/blob/master/FORMATS.md
 
 ## Building KSQLGeo
 
