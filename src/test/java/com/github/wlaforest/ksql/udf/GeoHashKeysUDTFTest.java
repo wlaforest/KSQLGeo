@@ -23,7 +23,7 @@ class GeoHashKeysUDTFTest {
         GeoHashKeysUDTF gh = new GeoHashKeysUDTF();
         List<String> results = gh.geo_hash_keys(testString,5);
 
-        // lets validate that the geohashes retuen intersect with the polygon.  First lets get the shape from
+        // let's validate that the geohashes retuen intersect with the polygon.  First lets get the shape from
         // Spatial4JHelper.
 
         Spatial4JHelper helper = new Spatial4JHelper();
@@ -31,12 +31,11 @@ class GeoHashKeysUDTFTest {
         Shape testShape = deserializer.getSpatial4JShapeFromString(testString);
 
         GeoHashUtils ghu = new GeoHashUtils();
-        for (int i = 0, l = results.size(); i < l; i++)
-        {
-            System.out.println("Checking hash " + results.get(i));
-            double[] bbox = ghu.decodeBoundingBox(results.get(i));
+        for (String result : results) {
+            System.out.println("Checking hash " + result);
+            double[] bbox = ghu.decodeBoundingBox(result);
             ShapeFactory shapeFactory = helper.getShapeFactory();
-            Rectangle rect = shapeFactory.rect(bbox[0],bbox[1],bbox[2],bbox[3]);
+            Rectangle rect = shapeFactory.rect(bbox[0], bbox[1], bbox[2], bbox[3]);
             SpatialRelation relation = testShape.relate(rect);
             assertTrue(relation.intersects());
         }

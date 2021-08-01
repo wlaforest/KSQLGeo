@@ -16,10 +16,10 @@ import java.util.List;
 public class Spatial4JHelper {
 
     // This will be lazily created when need a factory to support operations that are only available in 2D
-    private SpatialContextFactory scfEuclidean;
-    private SpatialContext scEuclidean;
-    private Spatial4jStringDeserializer deserializer;
-    private ShapeFactory shapeFactory;
+    private final SpatialContextFactory scfEuclidean;
+    private final SpatialContext scEuclidean;
+    private final Spatial4jStringDeserializer deserializer;
+    private final ShapeFactory shapeFactory;
 
     public Spatial4JHelper()
     {
@@ -79,8 +79,8 @@ public class Spatial4JHelper {
      * Spatial4j library.  Please check the Spatial4j documentation to see what shapes are supported in what models.
      *
      * @param geo1 geo shape one
-     * @param lat latitude for point to check contain inside of geo1
-     * @param lon longitude for point to check contain inside of geo1
+     * @param lat latitude for point to check containment in geo1
+     * @param lon longitude for point to check containment in geo1
      * @return Does geo1 contain geo2
      */
     public boolean contained(String geo1, double lat, double lon) throws GeometryParseException {
@@ -121,7 +121,7 @@ public class Spatial4JHelper {
         bbCords[4] = new Coordinate(bb.getMinX(), bb.getMinY());
 
         Polygon p = gf.createPolygon(bbCords);
-        return com.github.wlaforest.ksql.GeoHashKeysKt.geohashPoly(p,precision, "intersect", (double) 0);
+        return com.github.wlaforest.geo.GeoHashKeysKt.geohashPoly(p,precision, "intersect", (double) 0);
     }
 
     public ShapeFactory getShapeFactory()

@@ -22,13 +22,4 @@ class Spatial4JStringDeserializerTest extends BaseGeoUnitTest {
         assertNotNull(flintHill);
         assertFalse(flintHill.isEmpty());
     }
-
-    // Currently not supporting feature collections.  Commenting out until its implemented (if its ever implemented)
-//    @Test
-//    public void testFullGeoJson() throws GeometryParseException {
-//        SpatialContextFactory scf = new JtsSpatialContextFactory();
-//        Spatial4jStringDeserializer ssd = new Spatial4jStringDeserializer(scf, scf.newSpatialContext());
-//        Shape shape = ssd.getSpatial4JShapeFromString(ts("DC_METRO_MEDIUM_POLY.json"));
-//        assertNotNull(shape);
-//    }
 }

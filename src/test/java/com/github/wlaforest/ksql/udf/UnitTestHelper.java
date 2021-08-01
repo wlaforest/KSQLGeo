@@ -17,6 +17,7 @@ public class UnitTestHelper {
         return resultStringBuilder.toString();
     }
 
+    @SuppressWarnings("rawtypes")
     static protected String getResourceFileAsString(Class classArg, String relativePath) throws IOException {
 
         InputStream inputStream = null;

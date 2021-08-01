@@ -1,11 +1,10 @@
 package com.github.wlaforest.ksql.udf;
 
-import java.io.IOException;
-
 import static org.junit.Assert.fail;
 
+@SuppressWarnings("rawtypes")
 public abstract class BaseGeoUnitTest {
-    private Class subclass;
+    private final Class subclass;
 
     BaseGeoUnitTest(Class classArg)
     {

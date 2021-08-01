@@ -33,7 +33,7 @@ public class GeoHashUDF
         return GeohashUtils.encodeLatLon(lat,lon,precision);
     }
 
-    public class GeoHashBadParameterException extends Exception {
+    public static class GeoHashBadParameterException extends Exception {
         public GeoHashBadParameterException(String s) {
             super(s);
         }

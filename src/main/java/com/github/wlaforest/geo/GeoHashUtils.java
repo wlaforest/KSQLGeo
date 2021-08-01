@@ -11,7 +11,7 @@ public class GeoHashUtils
 {
 
     private final static String BASE32_CODES = "0123456789bcdefghjkmnpqrstuvwxyz";
-    private Map<Character, Integer> base32CodesMap;
+    private final Map<Character, Integer> base32CodesMap;
 
     public GeoHashUtils()
     {

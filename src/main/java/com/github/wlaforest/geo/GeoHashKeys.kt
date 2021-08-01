@@ -1,10 +1,13 @@
-package com.github.wlaforest.ksql
+@file:Suppress("SpellCheckingInspection", "SpellCheckingInspection", "SpellCheckingInspection")
+
+package com.github.wlaforest.geo
 
 import ch.hsr.geohash.BoundingBox
 import ch.hsr.geohash.GeoHash
 import ch.hsr.geohash.WGS84Point
 import org.locationtech.jts.geom.*
 import org.locationtech.jts.geom.impl.CoordinateArraySequence
+import kotlin.math.floor
 
 // This class has been adapted from https://github.com/xlvecle/geohash-poly which was written against the original JTS
 // when it was a vividsolutions.com library.  I have simply just updated the classes for the new version under
@@ -22,21 +25,22 @@ fun BoundingBox.toJTSPolygon(): Polygon {
     /**
      * ch.hsr.GeoHash to JTS Polygon
      */
-    val points = kotlin.arrayOf(Coordinate(this.minLat, this.maxLon),
+    val points = arrayOf(
+        Coordinate(this.minLat, this.maxLon),
         Coordinate(this.maxLat, this.maxLon),
         Coordinate(this.maxLat, this.minLon),
         Coordinate(this.minLat, this.minLon),
-        Coordinate(this.minLat, this.maxLon))
-    val polygon = GeometryFactory().createPolygon(LinearRing(CoordinateArraySequence(points), GeometryFactory()), null)
+        Coordinate(this.minLat, this.maxLon)
+    )
 
-    return polygon
+    return GeometryFactory().createPolygon(LinearRing(CoordinateArraySequence(points), GeometryFactory()), null)
 }
 
 fun WGS84Point.toJTSPoint(): Point {
     return GeometryFactory().createPoint(Coordinate(this.latitude, this.longitude))
 }
 
-fun geohashPoly(polygon: org.locationtech.jts.geom.Polygon, precision: Int = 7, mode: String = "center", threshold: Double? = null): List<String> {
+fun geohashPoly(polygon: Polygon, precision: Int = 7, mode: String = "center", threshold: Double? = null): List<String> {
 
     val b = polygon.envelopeBox()
 
@@ -47,8 +51,8 @@ fun geohashPoly(polygon: org.locationtech.jts.geom.Polygon, precision: Int = 7, 
     val perLat = hashNorthEast.boundingBox.latitudeSize
     val perLng = hashNorthEast.boundingBox.longitudeSize
 
-    val latStep = Math.floor((hashNorthEast.boundingBoxCenterPoint.latitude - hashSouthWest.boundingBoxCenterPoint.latitude) / perLat).toInt() + 1
-    val lngStep = Math.floor((hashNorthEast.boundingBoxCenterPoint.longitude - hashSouthWest.boundingBoxCenterPoint.longitude) / perLng).toInt() + 1
+    val latStep = floor((hashNorthEast.boundingBoxCenterPoint.latitude - hashSouthWest.boundingBoxCenterPoint.latitude) / perLat).toInt() + 1
+    val lngStep = floor((hashNorthEast.boundingBoxCenterPoint.longitude - hashSouthWest.boundingBoxCenterPoint.longitude) / perLng).toInt() + 1
 
     val hashList = mutableListOf<String>()
     val p = mutableListOf<List<Double>>()

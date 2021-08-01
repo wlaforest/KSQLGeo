@@ -4,7 +4,6 @@ import io.confluent.ksql.function.udtf.Udtf;
 import io.confluent.ksql.function.udtf.UdtfDescription;
 import io.confluent.ksql.function.udf.UdfParameter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -12,10 +11,10 @@ import java.util.List;
         author = "Will LaForest",
         version = "1.3.0",
         description = "UDTF for computing multiple geohashes for a geometry.  It will calculate all the geohashes a " +
-                "geometry falls in. This is very usefual for partitioning for the distributed join")
+                "geometry falls in. This is very useful for partitioning for the distributed join")
 public class GeoHashKeysUDTF extends GeometryBase {
 
-    @Udtf(description = "Takes WKT or GeoJSON Encoded Geometry and a geoahsh granularity and computes all geohash " +
+    @Udtf(description = "Takes WKT or GeoJSON Encoded Geometry and a geohash granularity and computes all geohash " +
             "bins the geometry falls in.  This is helpful for re-keying a st")
     public List<String> geo_hash_keys(
             @UdfParameter(value = "geo", description = "WKT or GeoJSON Encoded Geometry to check for enclosure") final String geo,
@@ -24,7 +23,7 @@ public class GeoHashKeysUDTF extends GeometryBase {
         return getSpatial4JHelper().coveringGeoHashes(geo,precision);
 
     }
-    @Udtf(description = "Takes WKT or GeoJSON Encoded Geometry and a geoahsh granularity and computes all geohash " +
+    @Udtf(description = "Takes WKT or GeoJSON Encoded Geometry and a geohash granularity and computes all geohash " +
             "bins the geometry falls in.  This is helpful for re-keying a st")
     public List<String> geo_hash_keys(
             @UdfParameter(value = "geo", description = "WKT or GeoJSON Encoded Geometry to check for enclosure") final String geo) throws GeometryParseException {

@@ -8,7 +8,7 @@ import io.confluent.ksql.function.udf.UdfParameter;
 @UdfDescription(
         name = "geo_contained",
         description = "UDF function to test containment of a point in a geometry.  Geometry can be encoded in WKT" +
-                "or GeoJSON.  null paremeters will always result in false",
+                "or GeoJSON.  null parameters will always result in false",
         version = "1.3.0",
         author = "Will LaForest"
 )

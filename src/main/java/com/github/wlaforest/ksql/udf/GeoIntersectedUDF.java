@@ -3,9 +3,6 @@ package com.github.wlaforest.ksql.udf;
 import io.confluent.ksql.function.udf.Udf;
 import io.confluent.ksql.function.udf.UdfDescription;
 import io.confluent.ksql.function.udf.UdfParameter;
-import org.locationtech.jts.geom.Geometry;
-import org.locationtech.spatial4j.context.SpatialContext;
-import org.locationtech.spatial4j.io.WKTReader;
 
 
 @UdfDescription(

@@ -2,9 +2,7 @@ package com.github.wlaforest.ksql.udf;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class GeoContainedUDFTest extends BaseGeoUnitTest {
 
@@ -19,7 +17,7 @@ class GeoContainedUDFTest extends BaseGeoUnitTest {
 
         GeoContainedUDF geometryContained = new GeoContainedUDF();
         boolean results = geometryContained.geo_contained(lat,lon, ts("MADISON_SCHOOL_DISTRICT_POLYGON_WKT.txt"));
-        assertEquals(true, results);
+        assertTrue(results);
     }
 
     @Test
@@ -29,7 +27,7 @@ class GeoContainedUDFTest extends BaseGeoUnitTest {
 
         GeoContainedUDF geometryContained = new GeoContainedUDF();
         boolean results = geometryContained.geo_contained(lat,lon,ts("MADISON_SCHOOL_DISTRICT_POLYGON_WKT.txt"));
-        assertEquals(false, results);
+        assertFalse(results);
     }
 
     @Test
@@ -39,7 +37,7 @@ class GeoContainedUDFTest extends BaseGeoUnitTest {
 
         GeoContainedUDF geometryContained = new GeoContainedUDF();
         boolean results = geometryContained.geo_contained(lat,lon,ts("MADISON_SCHOOL_DISTRICT_POLYGON_WKT.txt"));
-        assertEquals(false, results);
+        assertFalse(results);
     }
 
     @Test
@@ -49,7 +47,7 @@ class GeoContainedUDFTest extends BaseGeoUnitTest {
 
         GeoContainedUDF geometryContained = new GeoContainedUDF();
         boolean results = geometryContained.geo_contained(lat,lon,ts("MADISON_SCHOOL_DISTRICT_POLYGON_WKT.txt"));
-        assertEquals(true, results);
+        assertTrue(results);
     }
 
     @Test
@@ -59,15 +57,16 @@ class GeoContainedUDFTest extends BaseGeoUnitTest {
 
         GeoContainedUDF geometryContained = new GeoContainedUDF();
         boolean results = geometryContained.geo_contained(lat,lon,ts("MADISON_SCHOOL_DISTRICT_POLYGON_WKT.txt"));
-        assertEquals(true, results);
+        assertTrue(results);
     }
 
+    @SuppressWarnings("SpellCheckingInspection")
     @Test
     void point_contain_geoJSON() throws GeometryParseException {
         double lat = 49.43663;
         double lon = 7.76968;
         GeoContainedUDF geoContained = new GeoContainedUDF();
-        assertEquals(true, geoContained.geo_contained(lon, lat, ts("GEOJSON_TEST.json")));
+        assertTrue(geoContained.geo_contained(lon, lat, ts("GEOJSON_TEST.json")));
 
     }
 }
