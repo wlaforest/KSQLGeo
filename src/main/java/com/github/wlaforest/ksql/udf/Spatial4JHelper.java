@@ -8,6 +8,7 @@ import org.locationtech.spatial4j.context.SpatialContextFactory;
 import org.locationtech.spatial4j.context.jts.JtsSpatialContextFactory;
 import org.locationtech.spatial4j.shape.Rectangle;
 import org.locationtech.spatial4j.shape.Shape;
+import org.locationtech.spatial4j.shape.ShapeFactory;
 import org.locationtech.spatial4j.shape.SpatialRelation;
 
 import java.util.List;
@@ -17,10 +18,15 @@ public class Spatial4JHelper {
     // This will be lazily created when need a factory to support operations that are only available in 2D
     private SpatialContextFactory scfEuclidean;
     private SpatialContext scEuclidean;
+    private Spatial4jStringDeserializer deserializer;
+    private ShapeFactory shapeFactory;
 
-    public void Spatial4JEngine()
+    public Spatial4JHelper()
     {
-        // nothing yet
+        this.scfEuclidean = new JtsSpatialContextFactory();
+        this.scEuclidean = scfEuclidean.newSpatialContext();
+        this.deserializer = new Spatial4jStringDeserializer(this.scfEuclidean,this.scEuclidean);
+        this.shapeFactory = scfEuclidean.makeShapeFactory(scEuclidean);
     }
 
     /**
@@ -105,25 +111,26 @@ public class Spatial4JHelper {
         geoShape1 = stringDeserializer.getSpatial4JShapeFromString(geo1);
 
         GeometryFactory gf = new GeometryFactory();
-        Coordinate[] bbCords = new Coordinate[4];
+        Coordinate[] bbCords = new Coordinate[5];
 
         Rectangle bb = geoShape1.getBoundingBox();
         bbCords[0] = new Coordinate(bb.getMinX(), bb.getMinY());
         bbCords[1] = new Coordinate(bb.getMinX(), bb.getMaxY());
         bbCords[2] = new Coordinate(bb.getMaxX(), bb.getMaxY());
         bbCords[3] = new Coordinate(bb.getMaxX(), bb.getMinY());
+        bbCords[4] = new Coordinate(bb.getMinX(), bb.getMinY());
 
         Polygon p = gf.createPolygon(bbCords);
         return com.github.wlaforest.ksql.GeoHashKeysKt.geohashPoly(p,precision, "intersect", (double) 0);
     }
 
-    Spatial4jStringDeserializer getDeserializer()
+    public ShapeFactory getShapeFactory()
     {
-        // Lazy creation of factory and context if necessary
-        if (scfEuclidean == null) {
-            this.scfEuclidean = new JtsSpatialContextFactory();
-            this.scEuclidean = scfEuclidean.newSpatialContext();
-        }
-        return new Spatial4jStringDeserializer(scfEuclidean,scEuclidean);
+        return shapeFactory;
+    }
+
+    public Spatial4jStringDeserializer getDeserializer()
+    {
+        return deserializer;
     }
 }
