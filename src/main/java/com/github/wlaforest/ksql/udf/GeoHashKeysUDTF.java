@@ -15,32 +15,20 @@ import java.util.List;
                 "geometry falls in. This is very usefual for partitioning for the distributed join")
 public class GeoHashKeysUDTF extends GeometryBase {
 
-
     @Udtf(description = "Takes WKT or GeoJSON Encoded Geometry and a geoahsh granularity and computes all geohash " +
             "bins the geometry falls in.  This is helpful for re-keying a st")
     public List<String> geo_hash_keys(
             @UdfParameter(value = "geo", description = "WKT or GeoJSON Encoded Geometry to check for enclosure") final String geo,
-            @UdfParameter(value = "precision", description = "what level of precision?  Goes from 1-12") final int precision) {
-        List<String> result = new ArrayList<>();
+            @UdfParameter(value = "precision", description = "what level of precision?  Goes from 1-12") final int precision) throws GeometryParseException {
 
+        return getSpatial4JHelper().coveringGeoHashes(geo,precision);
 
-        result.add("1");
-        result.add("2");
-        result.add("3");
-
-        return result;
     }
     @Udtf(description = "Takes WKT or GeoJSON Encoded Geometry and a geoahsh granularity and computes all geohash " +
             "bins the geometry falls in.  This is helpful for re-keying a st")
     public List<String> geo_hash_keys(
-            @UdfParameter(value = "geo", description = "WKT or GeoJSON Encoded Geometry to check for enclosure") final String geo) {
+            @UdfParameter(value = "geo", description = "WKT or GeoJSON Encoded Geometry to check for enclosure") final String geo) throws GeometryParseException {
 
-        List<String> result = new ArrayList<>();
-
-        result.add("1");
-        result.add("2");
-        result.add("3");
-
-        return result;
+        return geo_hash_keys(geo, 7);
     }
 }
