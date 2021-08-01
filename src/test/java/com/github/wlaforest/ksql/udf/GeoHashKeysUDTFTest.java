@@ -13,6 +13,11 @@ import org.locationtech.spatial4j.shape.SpatialRelation;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// todo: Add a test to make sure adjacent geohashes do NOT intersect
+
+/**
+ * Unit test for the GeoHashKeysUDTFTest
+ */
 class GeoHashKeysUDTFTest {
 
     @Test
@@ -21,7 +26,7 @@ class GeoHashKeysUDTFTest {
         assertNotNull(testString);
 
         GeoHashKeysUDTF gh = new GeoHashKeysUDTF();
-        List<String> results = gh.geo_hash_keys(testString,5);
+        List<String> results = gh.geo_covering_geohashes(testString,5);
 
         // let's validate that the geohashes retuen intersect with the polygon.  First lets get the shape from
         // Spatial4JHelper.

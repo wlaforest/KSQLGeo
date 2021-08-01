@@ -8,14 +8,14 @@ public class GeoHashUDFTest
     @Test
     void testSimple() throws GeoHashUDF.GeoHashBadParameterException {
         GeoHashUDF gh = new GeoHashUDF();
-        String result = gh.geo_hash(-82,76);
+        String result = gh.geo_geohash(-82,76);
         assertNotNull(result);
     }
 
     @Test
     void testPrecion() throws GeoHashUDF.GeoHashBadParameterException {
         GeoHashUDF gh = new GeoHashUDF();
-        String result = gh.geo_hash(-82,76);
+        String result = gh.geo_geohash(-82,76);
         assertNotNull(result);
     }
 
@@ -23,7 +23,7 @@ public class GeoHashUDFTest
     void testBadValues() {
         GeoHashUDF gh = new GeoHashUDF();
         try{
-            gh.geo_hash(-82032,74436);
+            gh.geo_geohash(-82032,74436);
         }
         catch ( GeoHashUDF.GeoHashBadParameterException ghb)
         {
