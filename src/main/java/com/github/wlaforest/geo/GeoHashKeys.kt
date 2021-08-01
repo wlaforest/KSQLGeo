@@ -6,6 +6,10 @@ import ch.hsr.geohash.WGS84Point
 import org.locationtech.jts.geom.*
 import org.locationtech.jts.geom.impl.CoordinateArraySequence
 
+// This class has been adapted from https://github.com/xlvecle/geohash-poly which was written against the original JTS
+// when it was a vividsolutions.com library.  I have simply just updated the classes for the new version under
+// locationtech
+
 fun Polygon.envelopeBox(): List<Coordinate> {
     /**
      * SouthEast -> NorthEast -> NorthWest -> SouthWest
