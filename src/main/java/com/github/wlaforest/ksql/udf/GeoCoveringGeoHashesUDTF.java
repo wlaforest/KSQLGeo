@@ -12,7 +12,7 @@ import java.util.List;
         version = "1.3.0",
         description = "UDTF for computing the geohashes to completely cover a a geometry.  It will calculate all the " +
                 "geohashes a geometry falls in. This is very useful for partitioning for the distributed join")
-public class GeoHashKeysUDTF extends GeometryBase {
+public class GeoCoveringGeoHashesUDTF extends GeometryBase {
 
     @Udtf(description = "Takes WKT or GeoJSON Encoded Geometry and a geohash granularity and computes all geohash " +
             "bins the geometry falls in.  This is helpful for re-keying a st")

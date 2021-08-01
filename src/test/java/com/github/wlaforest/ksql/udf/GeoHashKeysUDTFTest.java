@@ -25,7 +25,7 @@ class GeoHashKeysUDTFTest {
         String testString = UnitTestHelper.getResourceFileAsString(this.getClass(),"MADISON_SCHOOL_DISTRICT_POLYGON_GEOJSON.json");
         assertNotNull(testString);
 
-        GeoHashKeysUDTF gh = new GeoHashKeysUDTF();
+        GeoCoveringGeoHashesUDTF gh = new GeoCoveringGeoHashesUDTF();
         List<String> results = gh.geo_covering_geohashes(testString,5);
 
         // let's validate that the geohashes retuen intersect with the polygon.  First lets get the shape from
