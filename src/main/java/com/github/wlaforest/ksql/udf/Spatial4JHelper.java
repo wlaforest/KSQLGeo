@@ -1,10 +1,16 @@
 package com.github.wlaforest.ksql.udf;
 
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.Polygon;
 import org.locationtech.spatial4j.context.SpatialContext;
 import org.locationtech.spatial4j.context.SpatialContextFactory;
 import org.locationtech.spatial4j.context.jts.JtsSpatialContextFactory;
+import org.locationtech.spatial4j.shape.Rectangle;
 import org.locationtech.spatial4j.shape.Shape;
 import org.locationtech.spatial4j.shape.SpatialRelation;
+
+import java.util.List;
 
 public class Spatial4JHelper {
 
@@ -82,6 +88,33 @@ public class Spatial4JHelper {
 
         SpatialRelation relation = geoShape1.relate(geoShape2);
         return relation == SpatialRelation.CONTAINS;
+    }
+
+    /**
+     * Takes a shape provided by geo1 and return the set of geohashes at the specificed level of precision to cover it.
+     * This supports multiple string encodings like WKT and GeoJSON.  In theory any format supported by the underlying
+     * Spatial4j library.  Please check the Spatial4j documentation to see what shapes are supported in what models.
+     *
+     * @param geo1 geo shape
+     * @param precision from 1 to 12
+     * @return Does geo1 contain geo2
+     */
+    public List<String> coveringGeoHashes(String geo1, int precision) throws GeometryParseException {
+        Shape geoShape1;
+        Spatial4jStringDeserializer stringDeserializer = getDeserializer();
+        geoShape1 = stringDeserializer.getSpatial4JShapeFromString(geo1);
+
+        GeometryFactory gf = new GeometryFactory();
+        Coordinate[] bbCords = new Coordinate[4];
+
+        Rectangle bb = geoShape1.getBoundingBox();
+        bbCords[0] = new Coordinate(bb.getMinX(), bb.getMinY());
+        bbCords[1] = new Coordinate(bb.getMinX(), bb.getMaxY());
+        bbCords[2] = new Coordinate(bb.getMaxX(), bb.getMaxY());
+        bbCords[3] = new Coordinate(bb.getMaxX(), bb.getMinY());
+
+        Polygon p = gf.createPolygon(bbCords);
+        return com.github.wlaforest.ksql.GeoHashKeysKt.geohashPoly(p,precision, "intersect", (double) 0);
     }
 
     Spatial4jStringDeserializer getDeserializer()

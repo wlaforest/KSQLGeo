@@ -12,7 +12,7 @@ import org.locationtech.spatial4j.io.WKTReader;
         name = "geo_intersected",
         description = "UDF function to test for geometry intersection in euclidean space. geometry encoded in " +
                 "WKT or GeoJSON. null value result in false being returned.",
-        version = "1.2.1",
+        version = "1.3.0",
         author = "Will LaForest"
 )
 public class GeoIntersectedUDF extends GeometryBase {
