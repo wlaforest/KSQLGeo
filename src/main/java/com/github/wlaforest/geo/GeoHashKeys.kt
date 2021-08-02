@@ -26,26 +26,26 @@ fun BoundingBox.toJTSPolygon(): Polygon {
      * ch.hsr.GeoHash to JTS Polygon
      */
     val points = arrayOf(
-        Coordinate(this.minLat, this.maxLon),
-        Coordinate(this.maxLat, this.maxLon),
-        Coordinate(this.maxLat, this.minLon),
-        Coordinate(this.minLat, this.minLon),
-        Coordinate(this.minLat, this.maxLon)
+        Coordinate(this.maxLon, this.minLat),
+        Coordinate(this.maxLon, this.maxLat),
+        Coordinate(this.minLon, this.maxLat),
+        Coordinate(this.minLon, this.minLat),
+        Coordinate(this.maxLon, this.minLat)
     )
 
     return GeometryFactory().createPolygon(LinearRing(CoordinateArraySequence(points), GeometryFactory()), null)
 }
 
 fun WGS84Point.toJTSPoint(): Point {
-    return GeometryFactory().createPoint(Coordinate(this.latitude, this.longitude))
+    return GeometryFactory().createPoint(Coordinate(this.longitude,this.latitude))
 }
 
 fun geohashPoly(polygon: Polygon, precision: Int = 7, mode: String = "center", threshold: Double? = null): List<String> {
 
     val b = polygon.envelopeBox()
 
-    val hashNorthEast = GeoHash.withCharacterPrecision(b[1].x, b[1].y, precision)
-    val hashSouthWest = GeoHash.withCharacterPrecision(b[3].x, b[3].y, precision)
+    val hashNorthEast = GeoHash.withCharacterPrecision(b[1].y, b[1].x, precision)
+    val hashSouthWest = GeoHash.withCharacterPrecision(b[3].y, b[3].x, precision)
 
 
     val perLat = hashNorthEast.boundingBox.latitudeSize
