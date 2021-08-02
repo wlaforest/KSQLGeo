@@ -40,7 +40,7 @@ class GeoHashKeysUDTFTest {
             System.out.println("Checking hash " + result);
             double[] bbox = ghu.decodeBoundingBox(result);
             ShapeFactory shapeFactory = helper.getShapeFactory();
-            Rectangle rect = shapeFactory.rect(bbox[0], bbox[1], bbox[2], bbox[3]);
+            Rectangle rect = shapeFactory.rect(bbox[1], bbox[3], bbox[0], bbox[2]);
             SpatialRelation relation = testShape.relate(rect);
             assertTrue(relation.intersects());
         }
