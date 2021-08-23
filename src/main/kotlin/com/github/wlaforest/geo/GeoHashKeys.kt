@@ -1,5 +1,3 @@
-@file:Suppress("SpellCheckingInspection", "SpellCheckingInspection", "SpellCheckingInspection")
-
 package com.github.wlaforest.geo
 
 import ch.hsr.geohash.BoundingBox
