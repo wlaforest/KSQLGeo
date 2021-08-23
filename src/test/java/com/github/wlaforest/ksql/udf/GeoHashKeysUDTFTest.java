@@ -1,6 +1,9 @@
 package com.github.wlaforest.ksql.udf;
 
 import com.github.wlaforest.geo.GeoHashUtils;
+import com.github.wlaforest.geo.GeometryParseException;
+import com.github.wlaforest.geo.Spatial4JHelper;
+import com.github.wlaforest.geo.Spatial4jStringDeserializer;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;

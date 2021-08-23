@@ -1,5 +1,6 @@
 package com.github.wlaforest.ksql.udf;
 
+import com.github.wlaforest.geo.GeometryParseException;
 import io.confluent.ksql.function.udf.Udf;
 import io.confluent.ksql.function.udf.UdfDescription;
 import io.confluent.ksql.function.udf.UdfParameter;
@@ -9,7 +10,7 @@ import io.confluent.ksql.function.udf.UdfParameter;
         name = "geo_contained",
         description = "UDF function to test containment of a point in a geometry.  Geometry can be encoded in WKT" +
                 "or GeoJSON.  null parameters will always result in false",
-        version = "1.3.0",
+        version = "1.3.1",
         author = "Will LaForest"
 )
 public class GeoContainedUDF extends GeometryBase {

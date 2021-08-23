@@ -1,4 +1,4 @@
-package com.github.wlaforest.ksql.udf;
+package com.github.wlaforest.geo;
 
 import org.locationtech.spatial4j.context.SpatialContext;
 import org.locationtech.spatial4j.context.SpatialContextFactory;

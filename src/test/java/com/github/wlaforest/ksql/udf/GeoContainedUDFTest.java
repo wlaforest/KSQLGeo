@@ -1,5 +1,6 @@
 package com.github.wlaforest.ksql.udf;
 
+import com.github.wlaforest.geo.GeometryParseException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

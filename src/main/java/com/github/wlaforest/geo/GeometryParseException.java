@@ -1,4 +1,4 @@
-package com.github.wlaforest.ksql.udf;
+package com.github.wlaforest.geo;
 
 
 public class GeometryParseException extends Exception {
