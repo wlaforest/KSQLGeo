@@ -1,4 +1,4 @@
-package com.github.wlaforest.ksql.udf;
+package com.github.wlaforest.geo;
 
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
@@ -124,6 +124,19 @@ public class Spatial4JHelper {
         return com.github.wlaforest.geo.GeoHashKeysKt.geohashPoly(p,precision, "intersect", (double) 0);
     }
 
+
+    /**
+     * Calculate the area of the shape.  See Spatial4J documenation
+     * https://locationtech.github.io/spatial4j/apidocs/org/locationtech/spatial4j/shape/Shape.html
+     * @param geo shape in WKT or GeoJSON
+     * @return squared degrees
+     */
+    public double area(String geo) throws GeometryParseException {
+        Shape geoShape1;
+        Spatial4jStringDeserializer stringDeserializer = getDeserializer();
+        geoShape1 = stringDeserializer.getSpatial4JShapeFromString(geo);
+        return geoShape1.getArea(scEuclidean);
+    }
     public ShapeFactory getShapeFactory()
     {
         return shapeFactory;
