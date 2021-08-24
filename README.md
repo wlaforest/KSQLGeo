@@ -4,12 +4,20 @@ This project provides geosptial functions for ksqlDB.  ksqlDB a stream processin
 and runs on top of Apache Kafka (https://ksqldb.io/).  Currently, the functions in this library are underpinned by 
 Spatial4j (https://github.com/locationtech/spatial4j). 
 
-## Encodings
+## Usage Notes
+
+### Encodings
 
 KSQLGeo uses the deserializtion from Spatial4J and currently support GeoJSON and WKT.  For more information about the
 specifics of this see https://github.com/locationtech/spatial4j/blob/master/FORMATS.md
 
-## Re-keying with UDTF
+### Configuration
+
+The fucntions in this library implement Configurable which means you can pass configuration paremeters in via environmental variables.  Currently the library exposes to parameters that directly map to Spatial4J's SpatialContextFactory (https://locationtech.github.io/spatial4j/apidocs/org/locationtech/spatial4j/context/SpatialContextFactory.html).
+* `ksql.functions._global_.spatial4j.geo` - Default is `true` - Determines whether to use a model based on a sphere or flat plane (Euclidean)
+* `ksql.functions._global_.spatial4j.normWrapLongitude` - Default is `false` - If true then normX(double) will wrap longitudes outside of the standard geodetic boundary into it. Example: 181 will become -179.
+
+### Re-keying with UDTF
 
 KSQLGeo has added a UDTF function called geo_covering_geohashes which will emit all the geohashes which cover a given shape.  This is important becasue when
 you join two geospatial streams you need a common key for the on clause.  Since a shape can span multiple geohashes it is necessary to emit mutliple copies of the same record each with a seperate key to cover all possibled geohshes it falls into.  
