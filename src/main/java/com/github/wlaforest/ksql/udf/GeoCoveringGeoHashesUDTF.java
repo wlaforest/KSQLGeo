@@ -21,7 +21,14 @@ public class GeoCoveringGeoHashesUDTF extends GeometryBase {
             @UdfParameter(value = "geo", description = "WKT or GeoJSON encoded geometry to check for enclosure") final String geo,
             @UdfParameter(value = "precision", description = "what level of precision?  Goes from 1-12") final int precision) throws GeometryParseException {
 
-        return getSpatial4JHelper().coveringGeoHashes(geo,precision);
+        try {
+            return getSpatial4JHelper().coveringGeoHashes(geo, precision);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            throw e;
+        }
 
     }
     @Udtf(description = "Takes WKT or GeoJSON Encoded Geometry and a geohash granularity and computes all geohash " +

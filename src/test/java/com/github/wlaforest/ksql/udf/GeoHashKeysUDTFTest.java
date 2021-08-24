@@ -29,12 +29,14 @@ class GeoHashKeysUDTFTest {
         assertNotNull(testString);
 
         GeoCoveringGeoHashesUDTF gh = new GeoCoveringGeoHashesUDTF();
+        gh.configure(null);
         List<String> results = gh.geo_covering_geohashes(testString,5);
 
         // let's validate that the geohashes retuen intersect with the polygon.  First lets get the shape from
         // Spatial4JHelper.
 
         Spatial4JHelper helper = new Spatial4JHelper();
+        helper.configure(null);
         Spatial4jStringDeserializer deserializer = helper.getDeserializer();
         Shape testShape = deserializer.getSpatial4JShapeFromString(testString);
 

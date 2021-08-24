@@ -7,35 +7,34 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GeoIntersectedUDFTest extends BaseGeoUnitTest
 {
+    final GeoIntersectedUDF gc = new GeoIntersectedUDF();
+
     GeoIntersectedUDFTest()
     {
         super(GeoIntersectedUDFTest.class);
+        gc.configure(null);
     }
 
     @Test
     void geometry_intersects() throws GeometryParseException {
-        GeoIntersectedUDF gc = new GeoIntersectedUDF();
         assertTrue(gc.geo_intersected(ts("MADISON_SCHOOL_DISTRICT_POLYGON_WKT.txt"),
                 ts("FLINT_HILL_WKT.txt")));
     }
 
     @Test
     void geometry_intersects_geojson() throws GeometryParseException {
-        GeoIntersectedUDF gc = new GeoIntersectedUDF();
         assertTrue(gc.geo_intersected(ts("MADISON_SCHOOL_DISTRICT_POLYGON_GEOJSON.json"),
                 ts("FLINT_HILL_GEOJSON.json")));
     }
 
     @Test
     void geometry_intersects_not() throws GeometryParseException {
-        GeoIntersectedUDF gc = new GeoIntersectedUDF();
         assertFalse(gc.geo_intersected(ts("MADISON_SCHOOL_DISTRICT_POLYGON_WKT.txt"),
                 ts("OAKTON_SCHOOL_DISTRICT_WKT.txt")));
     }
 
     @Test
     void geometry_intersects_geojson_not() throws GeometryParseException {
-        GeoIntersectedUDF gc = new GeoIntersectedUDF();
         assertFalse(gc.geo_intersected(ts("MADISON_SCHOOL_DISTRICT_POLYGON_GEOJSON.json"),
                 ts("OAKTON_SCHOOL_DISTRICT_GEOJSON.json")));
     }
@@ -45,9 +44,7 @@ class GeoIntersectedUDFTest extends BaseGeoUnitTest
      */
     @Test
     void geometry_interseccts_point_contained() throws GeometryParseException {
-        GeoIntersectedUDF gc = new GeoIntersectedUDF();
         assertTrue(gc.geo_intersected(ts("MADISON_SCHOOL_DISTRICT_POLYGON_WKT.txt"),
                 ts("FLINT_HILL_WKT.txt")));
     }
-
 }

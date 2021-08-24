@@ -1,5 +1,6 @@
 package com.github.wlaforest.geo;
 
+import org.apache.log4j.Logger;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Polygon;
@@ -12,21 +13,57 @@ import org.locationtech.spatial4j.shape.ShapeFactory;
 import org.locationtech.spatial4j.shape.SpatialRelation;
 
 import java.util.List;
+import java.util.Map;
 
 public class Spatial4JHelper {
 
+    private static final org.apache.log4j.Logger log = Logger.getLogger(Spatial4JHelper.class);
+
+    public static final String GEO_CONFIG_PARAM = "ksql.functions._global_.spatial4j.geo";
+    public static final String NORM_WRAP_LONGITUDE_CONFIG_PARAM = "ksql.functions._global_.spatial4j.normWrapLongitude";
+
     // This will be lazily created when need a factory to support operations that are only available in 2D
-    private final SpatialContextFactory scfEuclidean;
-    private final SpatialContext scEuclidean;
-    private final Spatial4jStringDeserializer deserializer;
-    private final ShapeFactory shapeFactory;
+    private final SpatialContextFactory scf;
+    private  SpatialContext spatialContext;
+    private Spatial4jStringDeserializer deserializer;
+    private ShapeFactory shapeFactory;
 
     public Spatial4JHelper()
     {
-        this.scfEuclidean = new JtsSpatialContextFactory();
-        this.scEuclidean = scfEuclidean.newSpatialContext();
-        this.deserializer = new Spatial4jStringDeserializer(this.scfEuclidean,this.scEuclidean);
-        this.shapeFactory = scfEuclidean.makeShapeFactory(scEuclidean);
+        this.scf = new JtsSpatialContextFactory();
+        this.spatialContext = scf.newSpatialContext();
+        this.deserializer = new Spatial4jStringDeserializer(this.scf,this.spatialContext);
+        this.shapeFactory = scf.makeShapeFactory(spatialContext);
+    }
+
+    /**
+     * Configure from a map of properties.  Simple first implementation is to just support a few fixed hard coded
+     * configuration parameters.
+     */
+    public void configure(Map<String, ?> args)
+    {
+        if (log.isDebugEnabled()) {
+            log.debug("Configure has been called with args  " + args);
+        }
+
+        if (args != null)
+        {
+            if (args.get(GEO_CONFIG_PARAM) !=  null) {
+                scf.geo =
+                        Boolean.parseBoolean(args.get(GEO_CONFIG_PARAM).toString());
+                log.info(GEO_CONFIG_PARAM + " = " + scf.geo);
+            }
+            if (args.get(NORM_WRAP_LONGITUDE_CONFIG_PARAM) !=  null)
+            {
+                scf.normWrapLongitude =
+                        Boolean.parseBoolean(args.get(NORM_WRAP_LONGITUDE_CONFIG_PARAM).toString());
+                log.info(NORM_WRAP_LONGITUDE_CONFIG_PARAM + " = " + scf.normWrapLongitude);
+            }
+        }
+
+        this.spatialContext = scf.newSpatialContext();
+        this.deserializer = new Spatial4jStringDeserializer(this.scf,this.spatialContext);
+        this.shapeFactory = scf.makeShapeFactory(spatialContext);
     }
 
     /**
@@ -90,7 +127,7 @@ public class Spatial4JHelper {
         Spatial4jStringDeserializer stringDeserializer = getDeserializer();
 
         geoShape1 = stringDeserializer.getSpatial4JShapeFromString(geo1);
-        geoShape2 = scfEuclidean.makeShapeFactory(scEuclidean).pointXY(lon,lat);
+        geoShape2 = scf.makeShapeFactory(spatialContext).pointXY(lon,lat);
 
         SpatialRelation relation = geoShape1.relate(geoShape2);
         return relation == SpatialRelation.CONTAINS;
@@ -135,7 +172,7 @@ public class Spatial4JHelper {
         Shape geoShape1;
         Spatial4jStringDeserializer stringDeserializer = getDeserializer();
         geoShape1 = stringDeserializer.getSpatial4JShapeFromString(geo);
-        return geoShape1.getArea(scEuclidean);
+        return geoShape1.getArea(spatialContext);
     }
     public ShapeFactory getShapeFactory()
     {
