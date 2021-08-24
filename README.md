@@ -11,7 +11,7 @@ specifics of this see https://github.com/locationtech/spatial4j/blob/master/FORM
 
 ## Re-keying with UDTF
 
-KSQLGeo has added a new UDTF function called geo_covering_geohashes which will emit all the geohashes which cover a given shape.  This is important becasue when
+KSQLGeo has added a UDTF function called geo_covering_geohashes which will emit all the geohashes which cover a given shape.  This is important becasue when
 you join two geospatial streams you need a common key for the on clause.  Since a shape can span multiple geohashes it is necessary to emit mutliple copies of the same record each with a seperate key to cover all possibled geohshes it falls into.  
 
 ## Building KSQLGeo
@@ -39,9 +39,9 @@ approximate school boundaries.
     CREATE STREAM SCHOOLS (NAME STRING, UNITY BOOLEAN, WKT STRING)
     WITH (KAFKA_TOPIC='SCHOOLS', VALUE_FORMAT='JSON', PARTITIONS=1, REPLICAS=1);
 
-    INSERT INTO SCHOOLS VALUES ('Madison', 'Madison', true,
+    INSERT INTO SCHOOLS VALUES ('Madison', true,
        'POLYGON((-77.27483600429103 38.89521905950339,-77.29131549647853 38.892012508280466,-77.31277316859767 38.89254694353762,-77.32066959193752 38.901097360742895,-77.31277316859767 38.90750949802689,-77.29938358119533 38.90697517537252,-77.30384677699611 38.91378748795597,-77.29818195155666 38.916325241169524,-77.30556339076564 38.92927972487108,-77.29869693568752 38.929413263931195,-77.29200214198634 38.93315225554382,-77.28307575038478 38.92741015163275,-77.2705444698672 38.92126692120997,-77.26608127406642 38.916191677473286,-77.2511467342715 38.91819510652208,-77.24634021571681 38.91191750646839,-77.27483600429103 38.89521905950339))');
-    INSERT INTO SCHOOLS VALUES ('Oakton', 'Oakton', true,
+    INSERT INTO SCHOOLS VALUES ('Oakton', true,
        'POLYGON((-77.3029731301166 38.871966195174494,-77.26846919334902 38.89027347822612,-77.29662165916933 38.88492877364056,-77.34846339500918 38.89575138309681,-77.33249888695254 38.8699614616396,-77.3029731301166 38.871966195174494))');
 
 Now lets test to see which of the records intersects with this polygon.  set auto.offset.reset = Earliest to test
