@@ -26,16 +26,7 @@ public class Spatial4jStringDeserializer {
 
     public Shape getSpatial4JShapeFromString(String stringEncoding) throws GeometryParseException
     {
-
         Shape shape;
-
-        WKTReader reader = new WKTReader(sc, scf);
-        try {
-             shape = reader.parse(stringEncoding);
-             if (shape != null) return shape;
-        } catch (ParseException pe) {
-            // we will try geojson next
-        }
 
         GeoJSONReader gjr = new GeoJSONReader(sc,scf);
         try {
@@ -44,8 +35,14 @@ public class Spatial4jStringDeserializer {
         } catch (UnsupportedOperationException eUnsupported) {
             if (eUnsupported.getMessage().contains("Unsupported shape"))
                 throw new GeometryParseException(MODEL_DOES_NOT_SUPPORT_SHAPE_MSG + stringEncoding, eUnsupported);
-            else
-                throw new GeometryParseException(UNABLE_TO_DECODE_MSG + stringEncoding,eUnsupported);
+        } catch (Exception e) {
+            // Could parse it GeoJSON, lets try WKT
+        }
+
+        WKTReader reader = new WKTReader(sc, scf);
+        try {
+             shape = reader.parse(stringEncoding);
+             if (shape != null) return shape;
         } catch (Exception e) {
             throw new GeometryParseException(UNABLE_TO_DECODE_MSG + stringEncoding,e);
         }
