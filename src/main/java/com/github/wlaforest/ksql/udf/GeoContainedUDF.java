@@ -44,8 +44,8 @@ public class GeoContainedUDF extends GeometryBase {
 
     @Udf(description = "determines if geo1 is contained within geo2 where geo1 and geo2 are encoded as wkt or geoJSON")
     public boolean geo_contained(
-            @UdfParameter(value = "geo1", description = "WKT or GeoJSON Encoded Geometry to check for enclosure") final String geo1,
-            @UdfParameter(value = "geo2", description = "WKT or GeoJSON Encoded Geometry to check for enclosure") final String geo2)
+            @UdfParameter(value = "geo1", description = "WKT or GeoJSON Encoded Geometry for the enclosure") final String geo1,
+            @UdfParameter(value = "geo2", description = "WKT or GeoJSON Encoded Geometry to check for enclosure in geo1") final String geo2)
                 throws GeometryParseException {
 
         return getSpatial4JHelper().contained(geo1,geo2);

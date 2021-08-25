@@ -7,7 +7,7 @@ import org.locationtech.spatial4j.io.GeohashUtils;
 
 @UdfDescription(
         name = "geo_geohash",
-        description = "Function to calculate the geohash of a given point.  Based on the Lucene code" +
+        description = "Function to calculate the geohash of a given point.  Based on the Lucene code " +
                 "https://lucene.apache.org/core/5_5_0/spatial/org/apache/lucene/spatial/util/GeoHashUtils.html",
         version = "1.3.1",
         author = "Will LaForest"
