@@ -2,10 +2,10 @@ package com.github.wlaforest.ksql.udf;
 
 import com.github.wlaforest.geo.GeometryParseException;
 import io.confluent.ksql.function.udf.Udf;
+import io.confluent.ksql.function.udf.UdfDescription;
 import io.confluent.ksql.function.udf.UdfParameter;
-import io.confluent.ksql.function.udtf.UdtfDescription;
 
-@UdtfDescription(name = "geo_area",
+@UdfDescription(name = "geo_area",
         author = "Will LaForest",
         version = "1.3.1",
         description = "UDF to calculate the area of a shape")
